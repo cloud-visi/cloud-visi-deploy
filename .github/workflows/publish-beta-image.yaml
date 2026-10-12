@@ -1,0 +1,62 @@
+name: Publish approved beta image
+on:
+  workflow_dispatch:
+  push:
+    branches: [codex/beta-image-release]
+    paths: [.github/workflows/publish-beta-image.yaml]
+permissions:
+  contents: read
+concurrency:
+  group: cloud-visi-beta-image
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.repository == 'cloud-visi/cloud-visi-deploy' && (github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/codex/beta-image-release')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      packages: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      VERSION: 0.1.0-beta.1
+      IMAGE: ghcr.io/cloud-visi/cloud-visi
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Download and verify the locally built runtime archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh release download "v$VERSION" --repo "$GITHUB_REPOSITORY" --pattern "cloud-visi-$VERSION.oci.tar" --dir "$RUNNER_TEMP"
+          python3 scripts/verify-image-archive.py "$RUNNER_TEMP/cloud-visi-$VERSION.oci.tar" --record "releases/$VERSION.json"
+      - name: Install official ORAS with checksum verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP"
+          for file in oras_1.3.4_linux_amd64.tar.gz oras_1.3.4_checksums.txt; do
+            curl --fail --location --retry 3 "https://github.com/oras-project/oras/releases/download/v1.3.4/$file" --output "$file"
+          done
+          grep ' oras_1.3.4_linux_amd64.tar.gz$' oras_1.3.4_checksums.txt | sha256sum --check
+          tar -xzf oras_1.3.4_linux_amd64.tar.gz oras
+          sudo install oras /usr/local/bin/oras
+      - name: Publish the approved digest and beta alias
+        shell: bash
+        run: |
+          set -euo pipefail
+          digest=$(python3 -c 'import json; print(json.load(open("releases/0.1.0-beta.1.json"))["image_digest"])')
+          printf '%s' "$GH_TOKEN" | oras login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+          if gh api orgs/cloud-visi/packages/container/cloud-visi > "$RUNNER_TEMP/package.json" 2> "$RUNNER_TEMP/package-error.txt"; then
+            if ! oras resolve "$IMAGE:$VERSION" > "$RUNNER_TEMP/existing-digest.txt" 2> "$RUNNER_TEMP/tag-error.txt"; then
+              grep -Eiq '404|MANIFEST_UNKNOWN|not found' "$RUNNER_TEMP/tag-error.txt"
+            else
+              test "$(cat "$RUNNER_TEMP/existing-digest.txt")" = "$digest" || { echo 'An existing version has a different digest. Refusing to replace it.' >&2; exit 1; }
+            fi
+          else
+            grep -q 'HTTP 404' "$RUNNER_TEMP/package-error.txt"
+          fi
+          oras cp --from-oci-layout "$RUNNER_TEMP/cloud-visi-$VERSION.oci.tar@$digest" "$IMAGE:$VERSION,beta"
+          test "$(oras resolve "$IMAGE:$VERSION")" = "$digest"
+          test "$(oras resolve "$IMAGE:beta")" = "$digest"
+          printf 'Published `%s:%s` and `%s:beta` at `%s`.\n' "$IMAGE" "$VERSION" "$IMAGE" "$digest" >> "$GITHUB_STEP_SUMMARY"
+          gh api orgs/cloud-visi/packages/container/cloud-visi --jq '{name,visibility,html_url}'
