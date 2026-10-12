@@ -27,8 +27,9 @@ check. The partner image uses its database readiness endpoint.
 - Keep OCI chart publication on hold.
 - After chart publication is authorized, verify anonymous chart download and a fresh installation from its published digest.
 
-Native AMD64 hardware has not been tested. There is no previous published partner
-release, so the upgrade check uses the previous main application image.
+The published beta also passes startup and scanner checks on native AMD64 and
+ARM64 GitHub runners. There is no previous published partner release, so the
+upgrade check uses the previous main application image.
 Four opt-in diagnostic and performance tests were skipped in the Go suite.
 
 Product source stays in the private product repository. The public repository
@@ -42,3 +43,10 @@ SBOMs and minimal provenance. The release record contains the immutable digest,
 archive checksum, source revision and actual build timestamp. Archive validation
 rejects source checkout files, environment files and unexpected release identity.
 The beta release notes record the post-publication download and runtime checks.
+
+Native post-publication checks passed on both `ubuntu-24.04` and
+`ubuntu-24.04-arm`: architecture, UID 10001, database readiness, beta version,
+source revision, build timestamp and bundled scanner. These use the exact
+published digest and disposable local databases. Anonymous GHCR download is still
+pending the package owner's public-visibility change; the beta OCI archive is
+already available without authentication as a GitHub release asset.

@@ -13,5 +13,10 @@
   "chart_published": false,
   "package_visibility": "private",
   "anonymous_pull_verified": false,
-  "publication_run": "https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/38247387792"
+  "publication_run": "https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/38247387792",
+  "native_runtime_verified": [
+    "linux/amd64",
+    "linux/arm64"
+  ],
+  "runtime_verification_run": "https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/38249257652"
 }
