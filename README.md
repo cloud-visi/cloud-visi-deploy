@@ -1,20 +1,31 @@
-# Cloud-Visi
+![Cloud-Visi: Terraform change intelligence, connecting changes, delivery, dependencies and state](assets/brand/cloud-visi-banner.svg)
 
-**Terraform change intelligence for DevOps, platform, and SRE teams.**
+# Cloud-Visi | Terraform change intelligence
 
-Infrastructure context is often spread across commits, pull requests, pipeline runs, and Terraform state. Cloud-Visi brings the information it can read into one place, so you can explore a resource's history and the evidence behind its changes.
+**Understand what changed in Terraform, how it moved through CI/CD, and which resources it touches.**
 
-Run it in your own environment and connect the Terraform repositories you already work with. Connections to your code host and state storage are read-only. You can start with code history and add state access later.
+Cloud-Visi brings Terraform code history, pull requests, pipeline runs, resource dependencies, and optional Terraform state into one place. DevOps engineers, platform engineers, and SREs can follow an infrastructure change from its commit to the plan, apply, and state evidence available for it.
 
-- **Code changes:** before-and-after values, commits, and pull request context.
-- **Delivery evidence:** pipeline activity and supported Terraform plan or apply results.
-- **State context:** resources and values from the Terraform state last read.
+Run Cloud-Visi in your own environment. Connect Terraform repositories in **GitHub or Azure DevOps**, read pipeline activity from **GitHub Actions or Azure Pipelines**, and optionally connect state in **Azure Blob Storage or AWS S3**. Code host and state connections are read-only.
 
-A successful pipeline run alone does not prove that a change was applied. Cloud-Visi keeps the available evidence and its limits visible. See [what information can be read](docs/available-information.md).
+## Explore your Terraform infrastructure
 
-This repository contains deployment files and partner guides. Product source is maintained separately.
+| Capability | What you can explore |
+| --- | --- |
+| **Terraform change tracking** | Resource additions, updates, and removals with before-and-after values, commits, and pull requests. |
+| **Plan and apply visibility** | Supported Terraform plan and apply results alongside pipeline runs, failed applies, and available state confirmation. |
+| **Resource change history** | A resource's code changes, recorded state, and delivery evidence in one timeline. |
+| **Infrastructure dependency mapping** | Resource relationships and resolved cross-state references to explore what a change could affect. |
+| **Terraform state and environment comparison** | Resources from the state last read and differences between configured environments. |
+| **Resource growth and delivery analytics** | Charts for infrastructure growth, resource types, deployment frequency, lead time, and pipeline health. |
+| **Team and review context** | Contributor activity, knowledge spread, and the pull request reviews available from your code host. |
+| **Change investigation** | Resource findings, incident timelines, and context to review before changing a resource. |
 
-**Release status:** the beta image is `ghcr.io/cloud-visi/cloud-visi:0.1.0-beta.1`, with Linux AMD64 and ARM64 support. See the [beta release](https://github.com/cloud-visi/cloud-visi-deploy/releases/tag/v0.1.0-beta.1). The OCI chart remains unpublished; install the chart files from this repository. The licence is still undecided. Anonymous image downloads are verified for AMD64 and ARM64. The release asset contains the compiled OCI image archive.
+The available detail depends on your repositories, permissions, workflow formats, and readable state. GitHub Actions support currently has less coverage than Azure Pipelines. A successful pipeline run alone does not prove a change was applied, and Terraform state is not a live cloud inventory. See [supported information and evidence limits](docs/available-information.md).
+
+This public repository contains deployment files and partner guides. Product source is maintained privately.
+
+**Beta available:** `ghcr.io/cloud-visi/cloud-visi:0.1.0-beta.1` supports Linux AMD64 and ARM64, with verified downloads without a registry login. The Helm chart files are included here and ready to install. See the [beta release](https://github.com/cloud-visi/cloud-visi-deploy/releases/tag/v0.1.0-beta.1). The licence remains undecided.
 
 ## Choose how to run it
 
@@ -28,13 +39,45 @@ Kubernetes with Helm is the supported deployment path for this preview. Compose 
 
 ## A look inside
 
-These are screenshots of the current application UI. The change history and repository views use fictional example data. A fresh installation starts empty; what appears depends on your connected repositories and the evidence available to read.
+Real application screens with fictional example data. Charts and history in your installation depend on your connected repositories and readable evidence. A fresh installation starts empty.
 
-### Terraform changes
+### Infrastructure growth and Terraform resource trends
 
-Changes show the resource, before-and-after values, repository context, and available status.
+Explore declared resources over time by type. Separate state charts show the entries read from each environment's Terraform state.
+
+![Cloud-Visi Terraform resource growth chart showing declared infrastructure over time with fictional example data](assets/screenshots/resource-growth.jpg)
+
+### Delivery performance and pipeline health
+
+Explore deployment frequency, lead time, change failure rate, recovery time, and rework from readable pipeline evidence. Pipeline health adds success rates by environment, failure categories, and step durations.
+
+![Cloud-Visi delivery performance dashboard showing deployment frequency, lead time and pipeline health charts with fictional example data](assets/screenshots/delivery-performance.jpg)
+
+<details>
+<summary>More charts: state trends and pipeline health</summary>
+
+### Terraform state trends by environment
+
+Compare the entries recorded in Terraform state for each environment over time.
+
+![Cloud-Visi stacked area chart showing fictional Terraform state entry trends for dev and staging](assets/screenshots/state-trends.jpg)
+
+### Pipeline health charts
+
+View success rates by environment, failed step categories, and durations of completed plan and apply steps.
+
+![Cloud-Visi pipeline health charts showing fictional success rates, failure categories and plan/apply step durations](assets/screenshots/pipeline-health.jpg)
+
+</details>
+
+### Terraform changes and resource history
+
+Follow resource changes with before-and-after values, repository context, and available delivery status.
 
 ![Cloud-Visi change timeline showing fictional Terraform resources, changed values, and evidence statuses](assets/screenshots/changes.jpg)
+
+<details>
+<summary>Repository sync and first connection</summary>
 
 ### Repository sync details
 
@@ -44,9 +87,11 @@ Compact repository rows open a detail panel with sync stages and optional state 
 
 ### First connection
 
-The setup screen lets you choose Azure DevOps or GitHub. Terraform state access can be added later.
+Choose Azure DevOps or GitHub. Terraform state access can be added later.
 
 ![Cloud-Visi first-run setup showing progress cards and Azure DevOps and GitHub connection choices](assets/screenshots/setup.jpg)
+
+</details>
 
 ## Before you connect a repository
 
