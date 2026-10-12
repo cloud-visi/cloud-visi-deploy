@@ -1,0 +1,13 @@
+# Optional overlay for an upcoming trial-enabled image. Keep compose.yaml's
+# existing database and repository volumes, database password and SECRET_KEY.
+services:
+  app:
+    environment:
+      TRIAL_LICENSE_FILE: /etc/cloud-visi/trial/license
+    volumes:
+      - type: bind
+        source: ${TRIAL_LICENSE_PATH:?Set TRIAL_LICENSE_PATH to your trial key file}
+        target: /etc/cloud-visi/trial/license
+        read_only: true
+        bind:
+          create_host_path: false

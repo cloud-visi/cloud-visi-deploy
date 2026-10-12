@@ -74,6 +74,20 @@ class ChartTests(unittest.TestCase):
                 result = subprocess.run(["helm", "template", "cloud-visi", str(CHART), "--set", setting], capture_output=True, text=True)
                 self.assertNotEqual(result.returncode, 0)
 
+    def test_trial_mount_is_optional_and_read_only(self):
+        default = next(d for d in render() if d["kind"] == "Deployment")
+        self.assertFalse(any(v["name"] == "trial-license" for v in default["spec"]["template"]["spec"]["volumes"]))
+        app = next(d for d in render("--set", "trial.existingSecret=partner-trial") if d["kind"] == "Deployment")
+        pod = app["spec"]["template"]["spec"]
+        volume = next(v for v in pod["volumes"] if v["name"] == "trial-license")
+        self.assertEqual(volume["secret"], {"secretName": "partner-trial", "defaultMode": 0o440, "items": [{"key": "trial-key", "path": "license"}]})
+        container = pod["containers"][0]
+        mount = next(m for m in container["volumeMounts"] if m["name"] == "trial-license")
+        self.assertTrue(mount["readOnly"])
+        self.assertEqual(next(e for e in container["env"] if e["name"] == "TRIAL_LICENSE_FILE")["value"], "/etc/cloud-visi/trial/license")
+        invalid = subprocess.run(["helm", "template", "cloud-visi", str(CHART), "--set", "trial.existingSecret=trial", "--set", "trial.key="], capture_output=True)
+        self.assertNotEqual(invalid.returncode, 0)
+
     def test_ingress_can_use_existing_authentication_gateway(self):
         docs = render("--set", "ingress.enabled=true", "--set", "ingress.authenticationConfirmed=true", "--set", "ingress.host=cloud-visi.example.com")
         ingress = next(d for d in docs if d["kind"] == "Ingress")
@@ -128,6 +142,17 @@ class DocumentationTests(unittest.TestCase):
         text = (ROOT / "docs/feedback.md").read_text().lower()
         self.assertNotIn("expected results", text)
         self.assertIn("no required task list", text)
+
+    def test_trial_compose_overlay_keeps_data_and_refuses_missing_file(self):
+        overlay = yaml.safe_load((ROOT / "compose.trial.yaml").read_text())
+        self.assertEqual(set(overlay["services"]), {"app"})
+        app = overlay["services"]["app"]
+        self.assertEqual(app["environment"], {"TRIAL_LICENSE_FILE": "/etc/cloud-visi/trial/license"})
+        mount = app["volumes"][0]
+        self.assertTrue(mount["read_only"])
+        self.assertFalse(mount["bind"]["create_host_path"])
+        self.assertIn("TRIAL_LICENSE_PATH:?", mount["source"])
+        self.assertNotIn("volumes", overlay)
 
     def test_compose_pulls_image_and_exposes_only_localhost(self):
         services = yaml.safe_load((ROOT / "compose.yaml").read_text())["services"]
