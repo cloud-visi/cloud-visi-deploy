@@ -1,6 +1,6 @@
 # Install with Helm
 
-The beta image is published. Check the release page for public registry access before installing; GitHub initially made the package private. The OCI chart remains on hold, so install the chart files from this repository and select the beta image explicitly.
+The beta image is public and can be downloaded without registry credentials. The OCI chart remains on hold, so install the chart files from this repository and select the beta image explicitly.
 
 ## What you need
 
