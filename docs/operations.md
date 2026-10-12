@@ -63,7 +63,20 @@ Keep the old database until you have checked the restored installation. Your pla
 helm uninstall cloud-visi --kube-context "$CONTEXT" --namespace cloud-visi
 ```
 
-The chart marks its database and repository claims to be kept. The installation Secret is created separately and is also kept. Do not delete the namespace if you want these to remain. On reinstall, use the kept claims through `persistence.existingClaim` and `postgresql.storage.existingClaim`.
+The chart marks its database and repository claims to be kept. The installation Secret is created separately and is also kept. Do not delete the namespace if you want these to remain. To reinstall using the default claim names, keep the same installation Secret and
+select the announced chart version:
+
+```bash
+helm upgrade --install cloud-visi oci://ghcr.io/cloud-visi/charts/cloud-visi \
+  --version "$CHART_VERSION" --kube-context "$CONTEXT" --namespace cloud-visi \
+  --set persistence.existingClaim=cloud-visi-repositories \
+  --set postgresql.storage.existingClaim=cloud-visi-database \
+  --wait --timeout 10m
+```
+
+If you used custom claim or Secret names, supply those original names instead.
+For an external database, also keep `postgresql.enabled=false` and its original
+connection settings.
 
 For Compose:
 

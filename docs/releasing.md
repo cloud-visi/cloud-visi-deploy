@@ -4,6 +4,9 @@ This guide is for maintainers. Partners do not need to build images or publish c
 
 The first release is blocked until the repository licence and image evaluation terms are approved. Repository creation is complete, but no package is published yet.
 
+The completed local checks and remaining publication gates are recorded in
+[Release validation](release-verification.md).
+
 ## Product build
 
 Build the image from the approved private product commit using its `scripts/build-partner-image.sh`. Keep the source checkout private. Use the image version, source revision, and build time in the release record.
