@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420" role="img" aria-labelledby="title desc">
+  <title id="title">Cloud-Visi</title>
+  <desc id="desc">Terraform change intelligence. A large Cloud-Visi wordmark on a deep teal background with connected infrastructure nodes and soft contour lines.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#102e32"/><stop offset=".55" stop-color="#123f42"/><stop offset="1" stop-color="#0b222a"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#54c5b4" stop-opacity=".22"/><stop offset="1" stop-color="#54c5b4" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#b4e1d8" opacity=".10"/></pattern>
+    <linearGradient id="line"><stop stop-color="#80d0c2"/><stop offset="1" stop-color="#c5e596"/></linearGradient>
+  </defs>
+  <rect width="1280" height="420" rx="24" fill="url(#bg)"/>
+  <rect width="1280" height="420" rx="24" fill="url(#grid)"/>
+  <ellipse cx="1010" cy="170" rx="420" ry="290" fill="url(#glow)"/>
+  <g fill="none" stroke="#78baad" stroke-opacity=".12" stroke-width="1.5">
+    <path d="M708 420C687 339 773 278 797 200S874 21 1036 0"/>
+    <path d="M744 420C723 339 809 278 833 200S910 21 1072 0"/>
+    <path d="M780 420C759 339 845 278 869 200S946 21 1108 0"/>
+    <path d="M816 420C795 339 881 278 905 200S982 21 1144 0"/>
+    <path d="M852 420C831 339 917 278 941 200S1018 21 1180 0"/>
+    <path d="M888 420C867 339 953 278 977 200S1054 21 1216 0"/>
+  </g>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="72" y="82" fill="#b4d7cd" font-size="15" font-weight="700" letter-spacing="3">INFRASTRUCTURE. WITH CONTEXT.</text>
+    <text x="66" y="218" fill="#f6fbf7" font-size="112" font-weight="700" letter-spacing="-5">Cloud-Visi</text>
+    <text x="72" y="275" fill="#cce5dd" font-size="29">Terraform change intelligence</text>
+    <rect x="72" y="317" width="40" height="3" rx="1.5" fill="#c5e596"/>
+    <text x="127" y="328" fill="#b4d7cd" font-size="17">Changes, delivery, dependencies and state.</text>
+  </g>
+  <g stroke="url(#line)" stroke-width="2" fill="none" opacity=".75">
+    <path d="M877 115L995 202L1155 120M995 202L1130 295M995 202L842 309"/>
+    <path d="M877 115L1155 120" stroke-dasharray="4 9" opacity=".45"/>
+  </g>
+  <g fill="#14383c" stroke="#80d0c2" stroke-width="1.5">
+    <rect x="846" y="84" width="62" height="62" rx="16"/>
+    <rect x="1124" y="89" width="62" height="62" rx="16"/>
+    <rect x="1099" y="264" width="62" height="62" rx="16"/>
+    <rect x="811" y="278" width="62" height="62" rx="16"/>
+  </g>
+  <g fill="none" stroke="#b4e1d8" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M870 103L860 115L870 127M884 103L894 115L884 127M881 100L873 130"/>
+    <path d="M1144 108L1167 120L1144 132Z"/>
+    <path d="M1117 288L1130 280L1143 288L1130 296ZM1117 288V303L1130 311L1143 303V288M1130 296V311"/>
+    <ellipse cx="842" cy="299" rx="13" ry="6"/><path d="M829 299V318C829 326 855 326 855 318V299M829 309C829 317 855 317 855 309"/>
+  </g>
+  <circle cx="995" cy="202" r="48" fill="#142f33" stroke="#c5e596" stroke-width="1.5"/>
+  <circle cx="995" cy="202" r="38" fill="none" stroke="#c5e596" stroke-opacity=".18"/>
+  <path d="M977 203L989 215L1014 190" stroke="#c5e596" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>
