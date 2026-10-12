@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "cloud-visi.name" . }}
+  labels:
+    {{- include "cloud-visi.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - {name: http, port: {{ .Values.service.port }}, targetPort: http}
+  selector:
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: app
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "cloud-visi.name" . }}
+  {{- with .Values.serviceAccount.annotations }}
+  annotations: {{ toYaml . | nindent 4 }}
+  {{- end }}
+automountServiceAccountToken: {{ .Values.serviceAccount.automountToken }}
