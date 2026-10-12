@@ -47,6 +47,7 @@ The beta release notes record the post-publication download and runtime checks.
 Native post-publication checks passed on both `ubuntu-24.04` and
 `ubuntu-24.04-arm`: architecture, UID 10001, database readiness, beta version,
 source revision, build timestamp and bundled scanner. These use the exact
-published digest and disposable local databases. Anonymous GHCR download is still
-pending the package owner's public-visibility change; the beta OCI archive is
-already available without authentication as a GitHub release asset.
+published digest and disposable local databases. Anonymous GHCR downloads passed for both AMD64 and ARM64 using an empty Docker
+credential configuration. The versioned tag and `beta` alias resolve to the
+recorded image digest. The compiled OCI archive is also available without
+authentication as a GitHub release asset.

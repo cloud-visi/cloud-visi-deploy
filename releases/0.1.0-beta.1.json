@@ -11,12 +11,21 @@
   ],
   "licence": "undecided",
   "chart_published": false,
-  "package_visibility": "private",
-  "anonymous_pull_verified": false,
+  "package_visibility": "public",
+  "anonymous_pull_verified": true,
   "publication_run": "https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/38247387792",
   "native_runtime_verified": [
     "linux/amd64",
     "linux/arm64"
   ],
-  "runtime_verification_run": "https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/38249257652"
+  "runtime_verification_run": "https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/38249257652",
+  "anonymous_pull_verified_platforms": [
+    "linux/amd64",
+    "linux/arm64"
+  ],
+  "anonymous_pull_verified_tags": [
+    "0.1.0-beta.1",
+    "beta"
+  ],
+  "anonymous_pull_verified_at": "2026-10-12T12:53:50Z"
 }
