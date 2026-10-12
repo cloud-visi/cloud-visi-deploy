@@ -14,7 +14,7 @@ A successful pipeline run alone does not prove that a change was applied. Cloud-
 
 This repository contains deployment files and partner guides. Product source is maintained separately.
 
-**Release status:** the first preview is being prepared. The GHCR image and chart are not published yet. The installation commands below are for use after the first release is announced. No licence has been selected yet.
+**Release status:** the beta image is `ghcr.io/cloud-visi/cloud-visi:0.1.0-beta.1`, with Linux AMD64 and ARM64 support. See the [beta release](https://github.com/cloud-visi/cloud-visi-deploy/releases/tag/v0.1.0-beta.1). The OCI chart remains unpublished; install the chart files from this repository. The licence is still undecided.
 
 ## Choose how to run it
 

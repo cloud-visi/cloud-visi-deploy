@@ -15,7 +15,7 @@ For Compose, use `docker compose restart app`.
 
 ## Upgrade
 
-Read the release notes and make a backup first. Keep the same installation Secret or Compose `.env` file. Use the Helm install command with the new chart version, or select the new Compose image as described in [Compose setup](compose.md).
+Read the release notes and make a backup first. Keep the same installation Secret or Compose `.env` file. Use the Helm install command with reviewed chart files and the new image version, or select the new Compose image as described in [Compose setup](compose.md).
 
 The application runs one instance. An upgrade stops the old instance before starting the new one, so there is a short interruption. Migrations finish before it accepts requests. Do not run a second installation against the same database.
 
@@ -64,11 +64,11 @@ helm uninstall cloud-visi --kube-context "$CONTEXT" --namespace cloud-visi
 ```
 
 The chart marks its database and repository claims to be kept. The installation Secret is created separately and is also kept. Do not delete the namespace if you want these to remain. To reinstall using the default claim names, keep the same installation Secret and
-select the announced chart version:
+select the announced image version:
 
 ```bash
-helm upgrade --install cloud-visi oci://ghcr.io/cloud-visi/charts/cloud-visi \
-  --version "$CHART_VERSION" --kube-context "$CONTEXT" --namespace cloud-visi \
+helm upgrade --install cloud-visi ./charts/cloud-visi \
+  --set image.tag="$IMAGE_VERSION" --kube-context "$CONTEXT" --namespace cloud-visi \
   --set persistence.existingClaim=cloud-visi-repositories \
   --set postgresql.storage.existingClaim=cloud-visi-database \
   --wait --timeout 10m

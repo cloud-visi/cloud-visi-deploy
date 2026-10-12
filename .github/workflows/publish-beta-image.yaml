@@ -60,3 +60,72 @@ jobs:
           test "$(oras resolve "$IMAGE:beta")" = "$digest"
           printf 'Published `%s:%s` and `%s:beta` at `%s`.\n' "$IMAGE" "$VERSION" "$IMAGE" "$digest" >> "$GITHUB_STEP_SUMMARY"
           gh api orgs/cloud-visi/packages/container/cloud-visi --jq '{name,visibility,html_url}'
+  smoke:
+    needs: publish
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {runner: ubuntu-24.04, arch: amd64, machine: x86_64}
+          - {runner: ubuntu-24.04-arm, arch: arm64, machine: aarch64}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      packages: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+      EXPECTED_ARCH: ${{ matrix.arch }}
+      EXPECTED_MACHINE: ${{ matrix.machine }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Verify published image on native hardware with disposable data
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(uname -m)" = "$EXPECTED_MACHINE"
+          digest=$(python3 -c 'import json; print(json.load(open("releases/0.1.0-beta.1.json"))["image_digest"])')
+          image="ghcr.io/cloud-visi/cloud-visi@$digest"
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+          docker pull --platform "linux/$EXPECTED_ARCH" "$image"
+          trap 'docker rm -f cloud-visi-beta-app cloud-visi-beta-db >/dev/null 2>&1 || true; docker network rm cloud-visi-beta-check >/dev/null 2>&1 || true' EXIT
+          docker network create cloud-visi-beta-check
+          docker run -d --name cloud-visi-beta-db --network cloud-visi-beta-check \
+            --env POSTGRES_USER=infra_timeline --env POSTGRES_DB=infra_timeline \
+            --env POSTGRES_PASSWORD=local-beta-validation-only postgres:16.15-bookworm
+          for attempt in $(seq 1 60); do
+            if docker exec cloud-visi-beta-db pg_isready -h 127.0.0.1 -U infra_timeline -d infra_timeline >/dev/null 2>&1; then break; fi
+            sleep 1
+          done
+          docker exec cloud-visi-beta-db pg_isready -h 127.0.0.1 -U infra_timeline -d infra_timeline
+          export DATABASE_URL='postgres://infra_timeline:local-beta-validation-only@cloud-visi-beta-db:5432/infra_timeline?sslmode=disable'
+          export SECRET_KEY=local-beta-validation-encryption-key
+          docker run -d --name cloud-visi-beta-app --network cloud-visi-beta-check \
+            --platform "linux/$EXPECTED_ARCH" --cap-drop ALL --security-opt no-new-privileges:true \
+            --env DATABASE_URL --env SECRET_KEY "$image"
+          ready=false
+          for attempt in $(seq 1 120); do
+            if docker exec cloud-visi-beta-app wget -q -O /dev/null http://127.0.0.1:8080/readyz; then ready=true; break; fi
+            sleep 1
+          done
+          test "$ready" = true
+          test "$(docker exec cloud-visi-beta-app id -u)" = 10001
+          python3 - <<'PY'
+          import json, os, subprocess
+          record = json.load(open('releases/0.1.0-beta.1.json'))
+          version = json.loads(subprocess.check_output(['docker', 'exec', 'cloud-visi-beta-app', 'wget', '-q', '-O', '-', 'http://127.0.0.1:8080/api/version']))
+          assert version['version'] == record['version']
+          assert version['revision'] == record['source_revision']
+          assert version['build_time'] == record['build_time']
+          assert version['os'] == 'linux' and version['arch'] == os.environ['EXPECTED_ARCH']
+          print('Verified published native runtime:', version['version'], version['arch'])
+          PY
+          docker exec cloud-visi-beta-app sh -c 'mkdir -p /tmp/scanner-check && printf "%s\n" "resource \"aws_security_group\" \"example\" {" "  ingress {" "    from_port = 22" "    to_port = 22" "    protocol = \"tcp\"" "    cidr_blocks = [\"0.0.0.0/0\"]" "  }" "}" > /tmp/scanner-check/main.tf && trivy config --skip-check-update --skip-version-check --cache-dir /trivy-cache --format json --output /tmp/scanner-check/result.json /tmp/scanner-check'
+          python3 - <<'PY'
+          import json, subprocess
+          scan = json.loads(subprocess.check_output(['docker', 'exec', 'cloud-visi-beta-app', 'cat', '/tmp/scanner-check/result.json']))
+          findings = [f for r in scan.get('Results', []) for f in r.get('Misconfigurations', [])]
+          assert findings, 'The bundled scanner did not identify the local sample issue'
+          print('Bundled checks executed; sample findings:', len(findings))
+          PY
+          printf 'Native `%s` runtime, readiness, version, non-root user and bundled scanner passed.\n' "$EXPECTED_ARCH" >> "$GITHUB_STEP_SUMMARY"

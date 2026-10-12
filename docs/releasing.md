@@ -1,29 +1,45 @@
 # Maintainer release procedure
 
-This guide is for maintainers. Partners do not need to build images or publish charts.
+Partners install a released image. They do not build or publish product code.
 
-The first release is blocked until the repository licence and image evaluation terms are approved. Repository creation is complete, but no package is published yet.
+The beta image publication was explicitly authorized for design partner validation.
+The licence remains undecided. OCI chart publication stays on hold.
 
-The completed local checks and remaining publication gates are recorded in
-[Release validation](release-verification.md).
+## Beta image publication
 
-## Product build
+1. Build an OCI archive from a clean, approved private product commit, including
+   Linux AMD64 and ARM64 images, SBOMs and minimal provenance. Set
+   `BUILDX_GIT_INFO=false` to keep private source-control details out of provenance.
+2. Record the image digest, archive checksum, source revision and actual build
+   time in `releases/<version>.json`. Inspect runtime layers for source checkouts,
+   environment files and private data before uploading.
+3. Run `scripts/verify-image-archive.py` with the archive and its release record,
+   the product tests and deployment checks. Record which runtime checks ran.
+4. Upload only the verified runtime archive to a beta GitHub prerelease. Its
+   checksum and image digest must match the approved record.
+5. Run `Publish approved beta image` when image publication has been explicitly
+   authorized. The initial publisher bootstrap runs only when its workflow file
+   changes on `codex/beta-image-release`; documentation changes do not publish.
+   Later runs are manual. The job has repository read and package write access,
+   downloads the approved public archive and never checks out private source.
+6. The publisher verifies the archive, keeps an existing version immutable,
+   uploads the versioned image and `beta` alias, and checks their digests.
+   It does not move `latest` or publish a chart.
+7. Make the package public, verify downloads without registry credentials on
+   both architectures, and update release notes with actual checks and limits.
 
-Build the image from the approved private product commit using its `scripts/build-partner-image.sh`. Keep the source checkout private. Use the image version, source revision, and build time in the release record.
+The private product build helper's general publishing mode still requires licence
+and evaluation-term files. This explicitly approved beta uses the verified archive
+publisher. No product licence or evaluation terms were selected by this process.
 
-The build script defaults to a local build. Its publishing mode checks for approved licence files, produces AMD64 and ARM64 images, and includes dependency inventory and build provenance. Authenticate the publishing process using a dedicated publisher identity. Never reuse a product read-only connection token.
+## Chart publication remains on hold
 
-## Chart and release record
+Install the local chart files and select the beta image explicitly. Do not run
+`helm push` until chart publication is authorized. Before publishing a chart,
+select its reviewed version, pin the image digest, run a fresh local install,
+and verify anonymous OCI chart downloads. Record its digest and tested versions.
 
-1. Run the product test suite with a disposable PostgreSQL database, the deployment checks, a fresh Helm install, and persistence checks.
-2. Set the chart's `version` and `appVersion` to the release versions. Set `image.digest` to the published multi-platform image digest. Do not reuse an existing release tag.
-3. Record the image digest, chart digest, source revision, tested versions, architectures, limitations, and any upgrade requirements in the release notes. Describe only checks that actually ran.
-4. Package the chart with `helm package charts/cloud-visi`.
-5. After licence approval and explicit publication authorization, authenticate to GHCR and push the chart with `helm push cloud-visi-<chart-version>.tgz oci://ghcr.io/cloud-visi/charts`.
-6. Set both packages to public. GHCR packages start private unless visibility is explicitly changed.
-7. Check image pulls and `helm show chart` from a clean registry configuration with no credentials. Follow the published install instructions from a fresh local cluster.
-8. Publish matching documentation and release notes only after these checks pass.
+The public repository contains deployment files, documentation and screenshots.
+Its normal CI validates those files. It does not mirror or build product source.
 
-No publishing workflow runs automatically from a documentation change. This repository does not fetch, mirror, or publish product source. Normal CI validates only deployment files.
-
-References: [GHCR](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry), [Helm OCI charts](https://helm.sh/docs/v3/topics/registries/), [Docker multi-platform builds](https://docs.docker.com/build/building/multi-platform/).
+References: [GHCR](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry), [Docker provenance](https://docs.docker.com/build/metadata/attestations/slsa-provenance/), [ORAS OCI archive copy](https://oras.land/docs/commands/oras_cp/).

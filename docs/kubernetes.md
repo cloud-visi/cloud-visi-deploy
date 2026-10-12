@@ -1,6 +1,6 @@
 # Install with Helm
 
-The first preview image and chart have not been published yet. Use these instructions when a release is announced. Select the chart version shown on its release page.
+The beta image is published. The OCI chart remains on hold, so install the chart files from this repository and select the beta image explicitly.
 
 ## What you need
 
@@ -47,11 +47,14 @@ This is separate from your GitHub or Azure DevOps token, which you enter in the 
 
 ## 4. Install the chart
 
-Replace `CHART_VERSION` with the version listed on the release page.
+Select the image version listed on the release page.
 
 ```bash
-CHART_VERSION=0.1.0-preview.1
-helm upgrade --install cloud-visi oci://ghcr.io/cloud-visi/charts/cloud-visi   --version "$CHART_VERSION"   --kube-context "$CONTEXT"   --namespace cloud-visi   --wait --timeout 10m
+IMAGE_VERSION=0.1.0-beta.1
+helm upgrade --install cloud-visi ./charts/cloud-visi \
+  --set image.tag="$IMAGE_VERSION" \
+  --kube-context "$CONTEXT" --namespace cloud-visi \
+  --wait --timeout 10m
 ```
 
 The first start creates the database tables before accepting requests. If installation does not finish, use [troubleshooting](troubleshooting.md).

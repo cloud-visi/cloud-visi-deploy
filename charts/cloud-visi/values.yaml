@@ -1,4 +1,4 @@
-# Preview artifacts are not published yet. See README.md for release status.
+# The beta image is published; the OCI chart remains on hold.
 image:
   repository: ghcr.io/cloud-visi/cloud-visi
   tag: "" # Defaults to the chart appVersion.

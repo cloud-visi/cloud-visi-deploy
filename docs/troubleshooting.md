@@ -2,7 +2,7 @@
 
 ## The image cannot be downloaded
 
-Check the release status first. Preview packages are not published until the first release is announced. After publication, check that the version or digest matches the release page and your cluster can reach `ghcr.io`. Public packages do not need a registry token.
+Check that the image version or digest matches the beta release page and your cluster can reach `ghcr.io`. The OCI chart is not published yet; use the local chart files. Public images do not need a registry token.
 
 ## Helm waits or a pod keeps restarting
 
