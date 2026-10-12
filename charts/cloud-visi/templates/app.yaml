@@ -52,6 +52,9 @@ spec:
             - {name: DATA_DIR, value: /data/repos}
             - {name: POLL_INTERVAL, value: {{ .Values.config.pollInterval | quote }}}
             - {name: BACKFILL_DAYS, value: {{ .Values.config.backfillDays | quote }}}
+            {{- if .Values.trial.existingSecret }}
+            - {name: TRIAL_LICENSE_FILE, value: /etc/cloud-visi/trial/license}
+            {{- end }}
             {{- with .Values.extraEnv }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
@@ -70,6 +73,9 @@ spec:
           resources: {{ toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - {name: repositories, mountPath: /data/repos}
+            {{- if .Values.trial.existingSecret }}
+            - {name: trial-license, mountPath: /etc/cloud-visi/trial, readOnly: true}
+            {{- end }}
             {{- with .Values.extraVolumeMounts }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
@@ -77,6 +83,15 @@ spec:
         - name: repositories
           persistentVolumeClaim:
             claimName: {{ default (printf "%s-repositories" (include "cloud-visi.name" .)) .Values.persistence.existingClaim }}
+        {{- if .Values.trial.existingSecret }}
+        - name: trial-license
+          secret:
+            secretName: {{ .Values.trial.existingSecret | quote }}
+            defaultMode: 0440
+            items:
+              - key: {{ required "Set trial.key to the Secret's trial key field." .Values.trial.key | quote }}
+                path: license
+        {{- end }}
         {{- with .Values.extraVolumes }}
         {{- toYaml . | nindent 8 }}
         {{- end }}

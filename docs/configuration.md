@@ -4,6 +4,7 @@ Most connection settings are entered in the application. Helm values configure h
 
 | Helm value | Purpose |
 | --- | --- |
+| `trial.existingSecret`, `trial.key` | Optional read-only trial key file for an upcoming trial-enabled image. UI activation is also supported. See [trial activation](trial.md). |
 | `image.repository`, `image.tag`, `image.digest` | Choose the release image. A digest takes precedence over a tag. |
 | `secrets.existingSecret` | Secret holding `DATABASE_URL` and `SECRET_KEY`. Bundled PostgreSQL also needs `POSTGRES_USER`, `POSTGRES_PASSWORD`, and `POSTGRES_DB`. |
 | `postgresql.enabled` | Use bundled PostgreSQL or your own database. |

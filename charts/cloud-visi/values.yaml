@@ -4,6 +4,11 @@ image:
   tag: "" # Defaults to the chart appVersion.
   digest: "" # A digest takes precedence over the tag.
   pullPolicy: IfNotPresent
+# Upcoming trial-enabled images can also be activated in the UI. The current
+# 0.1.0-beta.1 image has no trial enforcement.
+trial:
+  existingSecret: ""
+  key: trial-key
 imagePullSecrets: []
 fullnameOverride: ""
 replicaCount: 1 # Multiple application writers are not supported.

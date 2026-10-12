@@ -111,6 +111,7 @@ Use it for your own work. There is no required evaluation task or prescribed out
 
 - [What information can be read](docs/available-information.md)
 - [Configuration reference](docs/configuration.md)
+- [Upcoming 30-day trial activation](docs/trial.md)
 - [Restart, upgrade, backup, and remove](docs/operations.md)
 - [Troubleshooting](docs/troubleshooting.md)
 
