@@ -1,0 +1,22 @@
+name: Share your experience
+description: Tell us anything you want to share about using Cloud-Visi.
+body:
+  - type: markdown
+    attributes:
+      value: Public issues are visible to everyone. Leave out tokens, private code, Terraform state, backups, and unredacted logs.
+  - type: textarea
+    id: experience
+    attributes:
+      label: What would you like to share?
+      description: Use your own words. There is no required task or outcome.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Application and chart version, if known
+  - type: textarea
+    id: environment
+    attributes:
+      label: Deployment details, if relevant
+      description: For example, Docker Desktop or Kubernetes, CPU architecture, and the installation step involved. Do not include company secrets.

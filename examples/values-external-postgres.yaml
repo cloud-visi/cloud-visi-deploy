@@ -1,0 +1,6 @@
+postgresql:
+  enabled: false
+secrets:
+  existingSecret: cloud-visi-secrets
+# The Secret must contain DATABASE_URL (use sslmode=verify-full for a remote
+# server with a trusted certificate) and a stable SECRET_KEY.

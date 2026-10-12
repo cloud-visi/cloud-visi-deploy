@@ -1,0 +1,23 @@
+name: Check deployment files
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Install Helm with checksum verification
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in helm-v4.2.2-linux-amd64.tar.gz helm-v4.2.2-linux-amd64.tar.gz.sha256sum; do
+            curl --fail --location --retry 3 "https://get.helm.sh/$file" --output "$RUNNER_TEMP/$file"
+          done
+          cd "$RUNNER_TEMP"
+          sha256sum --check helm-v4.2.2-linux-amd64.tar.gz.sha256sum
+          tar -xzf helm-v4.2.2-linux-amd64.tar.gz
+          sudo install linux-amd64/helm /usr/local/bin/helm
+      - run: python3 -m pip install -r requirements-dev.txt
+      - run: helm lint charts/cloud-visi
+      - run: python3 -m unittest discover -s tests -v

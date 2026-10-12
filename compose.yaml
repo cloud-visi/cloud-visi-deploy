@@ -1,0 +1,44 @@
+name: cloud-visi-partner
+services:
+  postgres:
+    image: postgres:16.15-bookworm
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-infra_timeline}
+      POSTGRES_DB: ${POSTGRES_DB:-infra_timeline}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run scripts/create-compose-env.py first}
+    volumes:
+      - database:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"']
+      interval: 5s
+      timeout: 5s
+      retries: 60
+    restart: unless-stopped
+  app:
+    image: ${CLOUD_VISI_IMAGE:-ghcr.io/cloud-visi/cloud-visi:0.1.0-preview.1}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-infra_timeline}:${POSTGRES_PASSWORD:?Generate .env first}@postgres:5432/${POSTGRES_DB:-infra_timeline}?sslmode=disable
+      SECRET_KEY: ${SECRET_KEY:?Generate .env first}
+      POLL_INTERVAL: ${POLL_INTERVAL:-5m}
+      BACKFILL_DAYS: ${BACKFILL_DAYS:-30}
+    ports:
+      - '127.0.0.1:8080:8080'
+    volumes:
+      - repositories:/data/repos
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    stop_grace_period: 30s
+    restart: unless-stopped
+    healthcheck:
+      test: [CMD, wget, -q, -O, /dev/null, http://127.0.0.1:8080/readyz]
+      interval: 10s
+      timeout: 4s
+      retries: 3
+      start_period: 300s
+volumes:
+  database:
+  repositories:
