@@ -15,7 +15,7 @@ services:
       retries: 60
     restart: unless-stopped
   app:
-    image: ${CLOUD_VISI_IMAGE:-ghcr.io/cloud-visi/cloud-visi:0.1.0-preview.1}
+    image: ${CLOUD_VISI_IMAGE:-ghcr.io/cloud-visi/cloud-visi:0.1.0-beta.1}
     depends_on:
       postgres:
         condition: service_healthy

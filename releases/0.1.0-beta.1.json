@@ -1,0 +1,22 @@
+{
+  "version": "0.1.0-beta.1",
+  "image": "ghcr.io/cloud-visi/cloud-visi",
+  "image_digest": "sha256:3466183702f584975c02e600f51e2e364d7be51129e46c535de7e13a58d9b5d5",
+  "archive_sha256": "67a6f68a4f8ef401c37828ed22f6dd8b507390c7f7ba94d5dc340dd73828d668",
+  "source_revision": "e54df68a59088b0411e81cafb16d2e3722e38637",
+  "build_time": "2026-10-12T11:58:27Z",
+  "platforms": [
+    "linux/amd64",
+    "linux/arm64"
+  ],
+  "licence": "undecided",
+  "chart_published": false,
+  "package_visibility": "private",
+  "anonymous_pull_verified": false,
+  "publication_run": "https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/38247387792",
+  "native_runtime_verified": [
+    "linux/amd64",
+    "linux/arm64"
+  ],
+  "runtime_verification_run": "https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/38249257652"
+}
