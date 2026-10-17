@@ -50,9 +50,10 @@ This is separate from your GitHub or Azure DevOps token, which you enter in the 
 Select the image version listed on the release page.
 
 ```bash
-IMAGE_VERSION=0.1.0-beta.1
+IMAGE_VERSION=0.1.0-beta.2
+PUBLIC_URL=https://your-cloud-visi-hostname.example
 helm upgrade --install cloud-visi ./charts/cloud-visi \
-  --set image.tag="$IMAGE_VERSION" \
+  --set image.tag="$IMAGE_VERSION" --set config.authPublicURL="$PUBLIC_URL" \
   --kube-context "$CONTEXT" --namespace cloud-visi \
   --wait --timeout 10m
 ```
@@ -67,13 +68,15 @@ For a specific storage class, add:
 
 ## 5. Open the application
 
-```bash
-kubectl --context "$CONTEXT" -n cloud-visi port-forward service/cloud-visi 8080:8080
-```
+Route the private service through your existing trusted TLS proxy or ingress,
+using the exact HTTPS origin passed as `config.authPublicURL`. Preserve public
+Host and Origin headers and restrict direct backend access. The chart does not
+provision TLS or an authentication gateway.
 
-Keep that terminal open and visit http://127.0.0.1:8080. If that port is already in use, forward `8081:8080` and visit port 8081 instead.
-
-Next: [connect a repository](connect-repositories.md).
+Complete [operator administrator bootstrap](access-control.md), sign in at the
+configured HTTPS origin, [activate the trial](trial.md), then
+[connect a repository](connect-repositories.md). Plain HTTP port forwarding alone
+does not provide the secure browser session required by this release.
 
 ## Use your existing PostgreSQL database
 

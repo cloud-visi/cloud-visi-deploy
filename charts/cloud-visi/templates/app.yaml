@@ -49,6 +49,7 @@ spec:
             - name: SECRET_KEY
               valueFrom:
                 secretKeyRef: {name: {{ $secret }}, key: SECRET_KEY}
+            - {name: AUTH_PUBLIC_URL, value: {{ required "Set config.authPublicURL to the exact HTTPS origin behind your TLS proxy." .Values.config.authPublicURL | quote }}}
             - {name: DATA_DIR, value: /data/repos}
             - {name: POLL_INTERVAL, value: {{ .Values.config.pollInterval | quote }}}
             - {name: BACKFILL_DAYS, value: {{ .Values.config.backfillDays | quote }}}

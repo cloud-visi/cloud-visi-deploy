@@ -2,7 +2,7 @@ apiVersion: v2
 name: cloud-visi
 description: Self-hosted Terraform change intelligence for partner evaluation
 type: application
-version: 0.1.0-preview.1
-appVersion: 0.1.0-beta.1
+version: 0.1.0-preview.2
+appVersion: 0.1.0-beta.2
 kubeVersion: ">=1.30.0-0"
 home: https://github.com/cloud-visi/cloud-visi-deploy

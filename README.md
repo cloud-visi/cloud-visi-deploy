@@ -25,7 +25,7 @@ The available detail depends on your repositories, permissions, workflow formats
 
 This public repository contains deployment files and partner guides. Product source is maintained privately.
 
-**Beta available:** `ghcr.io/cloud-visi/cloud-visi:0.1.0-beta.1` supports Linux AMD64 and ARM64, with verified downloads without a registry login. The Helm chart files are included here and ready to install. See the [beta release](https://github.com/cloud-visi/cloud-visi-deploy/releases/tag/v0.1.0-beta.1). The licence remains undecided.
+**Release candidate:** `0.1.0-beta.2` adds administrator sign-in, repository viewer grants and installation-bound trials. See the [changelog](CHANGELOG.md), [access setup](docs/access-control.md), and [trial guide](docs/trial.md) before upgrading. Publication and fresh image checks are pending. The older [beta.1 release](https://github.com/cloud-visi/cloud-visi-deploy/releases/tag/v0.1.0-beta.1) remains unchanged. The licence remains undecided.
 
 ## Choose how to run it
 

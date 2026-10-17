@@ -1,6 +1,4 @@
-Open Cloud-Visi from your own computer:
-  kubectl -n {{ .Release.Namespace }} port-forward service/{{ include "cloud-visi.name" . }} 8080:{{ .Values.service.port }}
-Then visit http://127.0.0.1:8080.
-
-Keep your Secret and persistent volumes when upgrading.
-There is no built-in login. Use your existing authentication gateway for shared access.
+Cloud-Visi is private by default. Route it through your existing trusted TLS proxy.
+Visit {{ .Values.config.authPublicURL }} after operator administrator bootstrap.
+See docs/access-control.md and docs/trial.md before connecting repositories.
+Keep the database, repository claim and encryption Secret through upgrades.

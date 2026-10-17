@@ -15,7 +15,7 @@ services:
       retries: 60
     restart: unless-stopped
   app:
-    image: ${CLOUD_VISI_IMAGE:-ghcr.io/cloud-visi/cloud-visi:0.1.0-beta.1}
+    image: ${CLOUD_VISI_IMAGE:-ghcr.io/cloud-visi/cloud-visi:0.1.0-beta.2}
     depends_on:
       postgres:
         condition: service_healthy
@@ -24,6 +24,7 @@ services:
       SECRET_KEY: ${SECRET_KEY:?Generate .env first}
       POLL_INTERVAL: ${POLL_INTERVAL:-5m}
       BACKFILL_DAYS: ${BACKFILL_DAYS:-30}
+      AUTH_PUBLIC_URL: ${AUTH_PUBLIC_URL:?Set the exact HTTPS origin served by your existing TLS proxy}
     ports:
       - '127.0.0.1:8080:8080'
     volumes:

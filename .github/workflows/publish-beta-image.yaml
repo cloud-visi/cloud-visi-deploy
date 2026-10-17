@@ -1,6 +1,12 @@
 name: Publish approved beta image
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: Approved beta version with a matching release record and OCI archive
+        type: string
+        required: true
+        default: 0.1.0-beta.2
   push:
     branches: [codex/beta-image-release]
     paths: [.github/workflows/publish-beta-image.yaml]
@@ -19,7 +25,7 @@ jobs:
       packages: write
     env:
       GH_TOKEN: ${{ github.token }}
-      VERSION: 0.1.0-beta.1
+      VERSION: ${{ inputs.version || '0.1.0-beta.2' }}
       IMAGE: ghcr.io/cloud-visi/cloud-visi
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
@@ -27,6 +33,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+-beta\.[0-9]+$ ]] || { echo "Invalid beta version" >&2; exit 1; }
+          test -f "releases/$VERSION.json"
           gh release download "v$VERSION" --repo "$GITHUB_REPOSITORY" --pattern "cloud-visi-$VERSION.oci.tar" --dir "$RUNNER_TEMP"
           python3 scripts/verify-image-archive.py "$RUNNER_TEMP/cloud-visi-$VERSION.oci.tar" --record "releases/$VERSION.json"
       - name: Install official ORAS with checksum verification
@@ -44,7 +52,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          digest=$(python3 -c 'import json; print(json.load(open("releases/0.1.0-beta.1.json"))["image_digest"])')
+          digest=$(python3 -c 'import json, os; print(json.load(open("releases/" + os.environ["VERSION"] + ".json"))["image_digest"])')
           printf '%s' "$GH_TOKEN" | oras login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
           if gh api orgs/cloud-visi/packages/container/cloud-visi > "$RUNNER_TEMP/package.json" 2> "$RUNNER_TEMP/package-error.txt"; then
             if ! oras resolve "$IMAGE:$VERSION" > "$RUNNER_TEMP/existing-digest.txt" 2> "$RUNNER_TEMP/tag-error.txt"; then
@@ -75,6 +83,7 @@ jobs:
       packages: read
     env:
       GH_TOKEN: ${{ github.token }}
+      VERSION: ${{ inputs.version || '0.1.0-beta.2' }}
       EXPECTED_ARCH: ${{ matrix.arch }}
       EXPECTED_MACHINE: ${{ matrix.machine }}
     steps:
@@ -84,7 +93,7 @@ jobs:
         run: |
           set -euo pipefail
           test "$(uname -m)" = "$EXPECTED_MACHINE"
-          digest=$(python3 -c 'import json; print(json.load(open("releases/0.1.0-beta.1.json"))["image_digest"])')
+          digest=$(python3 -c 'import json, os; print(json.load(open("releases/" + os.environ["VERSION"] + ".json"))["image_digest"])')
           image="ghcr.io/cloud-visi/cloud-visi@$digest"
           printf '%s' "$GH_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
           docker pull --platform "linux/$EXPECTED_ARCH" "$image"
@@ -102,7 +111,8 @@ jobs:
           export SECRET_KEY=local-beta-validation-encryption-key
           docker run -d --name cloud-visi-beta-app --network cloud-visi-beta-check \
             --platform "linux/$EXPECTED_ARCH" --cap-drop ALL --security-opt no-new-privileges:true \
-            --env DATABASE_URL --env SECRET_KEY "$image"
+            --env DATABASE_URL --env SECRET_KEY \
+            --env ADDR=127.0.0.1:8080 --env AUTH_PUBLIC_URL=http://127.0.0.1:8080 --env AUTH_DEV_HTTP=true "$image"
           ready=false
           for attempt in $(seq 1 120); do
             if docker exec cloud-visi-beta-app wget -q -O /dev/null http://127.0.0.1:8080/readyz; then ready=true; break; fi
@@ -110,16 +120,7 @@ jobs:
           done
           test "$ready" = true
           test "$(docker exec cloud-visi-beta-app id -u)" = 10001
-          python3 - <<'PY'
-          import json, os, subprocess
-          record = json.load(open('releases/0.1.0-beta.1.json'))
-          version = json.loads(subprocess.check_output(['docker', 'exec', 'cloud-visi-beta-app', 'wget', '-q', '-O', '-', 'http://127.0.0.1:8080/api/version']))
-          assert version['version'] == record['version']
-          assert version['revision'] == record['source_revision']
-          assert version['build_time'] == record['build_time']
-          assert version['os'] == 'linux' and version['arch'] == os.environ['EXPECTED_ARCH']
-          print('Verified published native runtime:', version['version'], version['arch'])
-          PY
+          python3 scripts/smoke-image.py --container cloud-visi-beta-app --record "releases/$VERSION.json" --arch "$EXPECTED_ARCH"
           docker exec cloud-visi-beta-app sh -c 'mkdir -p /tmp/scanner-check && printf "%s\n" "resource \"aws_security_group\" \"example\" {" "  ingress {" "    from_port = 22" "    to_port = 22" "    protocol = \"tcp\"" "    cidr_blocks = [\"0.0.0.0/0\"]" "  }" "}" > /tmp/scanner-check/main.tf && trivy config --skip-check-update --skip-version-check --cache-dir /trivy-cache --format json --output /tmp/scanner-check/result.json /tmp/scanner-check'
           python3 - <<'PY'
           import json, subprocess

@@ -8,7 +8,7 @@ You can use the same Helm chart on your computer.
 4. Run `kubectl config get-contexts` and identify its local context. It is usually named `docker-desktop`.
 5. Follow [Install with Helm](kubernetes.md), using that local context. You can add `-f examples/values-docker-desktop.yaml` to the Helm command.
 
-The setup uses the local cluster's storage and port forwarding. It does not require an ingress controller or a cloud subscription.
+The setup uses local cluster storage. The authenticated beta requires an existing trusted HTTPS proxy for browser access; plain HTTP port forwarding alone is insufficient. A cloud subscription is not needed to install the application.
 
 Do not reset the Docker Desktop Kubernetes cluster while you want to keep your installation data. A cluster reset can remove the application and its storage.
 

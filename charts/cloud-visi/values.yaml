@@ -4,8 +4,7 @@ image:
   tag: "" # Defaults to the chart appVersion.
   digest: "" # A digest takes precedence over the tag.
   pullPolicy: IfNotPresent
-# Upcoming trial-enabled images can also be activated in the UI. The current
-# 0.1.0-beta.1 image has no trial enforcement.
+# Beta.2 requires administrator sign-in and an owner-issued installation trial.
 trial:
   existingSecret: ""
   key: trial-key
@@ -34,6 +33,7 @@ resources:
   requests: {cpu: 250m, memory: 512Mi}
   limits: {cpu: "2", memory: 2Gi}
 config:
+  authPublicURL: "" # Required exact HTTPS origin behind your existing TLS proxy.
   pollInterval: 5m
   backfillDays: 30
 serviceAccount:

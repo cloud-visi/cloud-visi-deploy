@@ -17,7 +17,7 @@ CHART = ROOT / "charts/cloud-visi"
 
 
 def render(*args):
-    result = subprocess.run(["helm", "template", "cloud-visi", str(CHART), "--namespace", "cloud-visi", *args], text=True, capture_output=True)
+    result = subprocess.run(["helm", "template", "cloud-visi", str(CHART), "--namespace", "cloud-visi", "--set", "config.authPublicURL=https://cloud-visi.example.test", *args], text=True, capture_output=True)
     if result.returncode:
         raise AssertionError(result.stderr)
     return [doc for doc in yaml.safe_load_all(result.stdout) if doc]
@@ -69,9 +69,9 @@ class ChartTests(unittest.TestCase):
         self.assertEqual(app["spec"]["template"]["spec"]["containers"][0]["image"], "ghcr.io/cloud-visi/cloud-visi@" + digest)
 
     def test_unsafe_or_incomplete_configuration_is_rejected(self):
-        for setting in ("replicaCount=2", "secrets.existingSecret=", "ingress.enabled=true", "image.digest=not-a-digest"):
+        for setting in ("replicaCount=2", "secrets.existingSecret=", "ingress.enabled=true", "image.digest=not-a-digest", "config.authPublicURL="):
             with self.subTest(setting=setting):
-                result = subprocess.run(["helm", "template", "cloud-visi", str(CHART), "--set", setting], capture_output=True, text=True)
+                result = subprocess.run(["helm", "template", "cloud-visi", str(CHART), "--set", "config.authPublicURL=https://cloud-visi.example.test", "--set", setting], capture_output=True, text=True)
                 self.assertNotEqual(result.returncode, 0)
 
     def test_trial_mount_is_optional_and_read_only(self):
@@ -85,7 +85,7 @@ class ChartTests(unittest.TestCase):
         mount = next(m for m in container["volumeMounts"] if m["name"] == "trial-license")
         self.assertTrue(mount["readOnly"])
         self.assertEqual(next(e for e in container["env"] if e["name"] == "TRIAL_LICENSE_FILE")["value"], "/etc/cloud-visi/trial/license")
-        invalid = subprocess.run(["helm", "template", "cloud-visi", str(CHART), "--set", "trial.existingSecret=trial", "--set", "trial.key="], capture_output=True)
+        invalid = subprocess.run(["helm", "template", "cloud-visi", str(CHART), "--set", "config.authPublicURL=https://cloud-visi.example.test", "--set", "trial.existingSecret=trial", "--set", "trial.key="], capture_output=True)
         self.assertNotEqual(invalid.returncode, 0)
 
     def test_ingress_can_use_existing_authentication_gateway(self):

@@ -2,12 +2,12 @@
 
 ## Release availability
 
-Trial enforcement is being prepared for a future release. The currently published `0.1.0-beta.1` image has no trial expiry. No trial-enabled image has been published yet. Use this guide once Cloud-Visi supplies the new release image.
+Candidate `0.1.0-beta.2` requires an installation-bound trial. The older `0.1.0-beta.1` image has no trial expiry. Check the release record for publication status.
 
 ## Activate your installation
 
 1. Install the trial-enabled release using the normal Kubernetes or optional Compose guide.
-2. Open the application. The activation page shows your **Installation ID**.
+2. Complete [administrator bootstrap](access-control.md) and sign in. The activation page shows your **Installation ID**.
 3. Share that ID with your Cloud-Visi contact. It is not a code-host credential.
 4. Paste the trial key they supply and select **Activate trial**.
 
@@ -17,7 +17,7 @@ Settings > General shows your expiry date and lets you enter a replacement key. 
 
 ## When the trial ends
 
-New syncs stop, and normal application access is paused. The activation page remains available so you can enter a new key. Health and database readiness checks continue to work; an expired trial should not make Kubernetes restart the pod repeatedly.
+New syncs stop, and normal application access is paused. Administrator sign-in, account recovery and renewal remain available so an administrator can enter a new key. Health and database readiness checks continue to work; an expired trial should not make Kubernetes restart the pod repeatedly.
 
 Your database, cloned repositories, history, and saved settings remain stored. Expiry does not delete them. Keep the database and repository volumes, and keep the same encryption key. Your platform team can continue to back up the database using the [operations guide](operations.md).
 
