@@ -25,7 +25,7 @@ The available detail depends on your repositories, permissions, workflow formats
 
 This public repository contains deployment files and partner guides. Product source is maintained privately.
 
-**Beta release:** `0.1.0-beta.2` adds administrator sign-in, repository viewer grants and installation-bound trials. See the [changelog](CHANGELOG.md), [access setup](docs/access-control.md), and [trial guide](docs/trial.md) before upgrading. See the [release page](https://github.com/cloud-visi/cloud-visi-deploy/releases/tag/v0.1.0-beta.2) for image availability and completed runtime checks. The older [beta.1 release](https://github.com/cloud-visi/cloud-visi-deploy/releases/tag/v0.1.0-beta.1) remains unchanged. The licence remains undecided.
+**Beta release:** `0.1.0-beta.2` adds administrator sign-in, repository viewer grants and installation-bound trials. See the [changelog](CHANGELOG.md), [access setup](docs/access-control.md), and [trial guide](docs/trial.md) before upgrading. The [public image](https://github.com/cloud-visi/cloud-visi-deploy/releases/tag/v0.1.0-beta.2) passed native AMD64/ARM64 runtime checks and anonymous downloads. The older [beta.1 release](https://github.com/cloud-visi/cloud-visi-deploy/releases/tag/v0.1.0-beta.1) remains unchanged. The licence remains undecided.
 
 ## Choose how to run it
 

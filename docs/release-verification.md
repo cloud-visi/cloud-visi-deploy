@@ -14,12 +14,18 @@ and disposable local data. No real code-host or state credentials are used.
 | Deployment | 21 tests and Helm lint pass with the required public origin |
 | OCI archive | AMD64/ARM64 manifests, UID 10001, SBOMs, provenance and runtime layer checks pass |
 | Local ARM64 runtime | First administrator, login, version identity, signed owner trial activation, product access and restart retention pass |
-| GHCR and native AMD64/ARM64 | See the release page and release record for publication results |
+| GHCR publication | Version and beta alias match the approved archive digest |
+| Native AMD64 and ARM64 | Readiness, UID 10001, administrator bootstrap/login, version identity, configured trial verification and bundled scanner pass |
+| Anonymous GHCR downloads | Both architectures pass using an empty Docker credential configuration |
+| Existing tags | Beta.1 unchanged; latest remains absent; OCI chart unpublished |
 
 Diagnostic/performance tests remain opt-in. The passing two-hour partner soak
 was completed on 15 October; it was not repeated for this image release.
 The 25,000-resource comparison still falls outside the verified latency envelope.
 See [the changelog](../CHANGELOG.md) for upgrade requirements and limits.
+[Publication and native checks](https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/39019872885) use the exact approved digest
+and disposable data. [The release record](../releases/0.1.0-beta.2.json) records
+the digest, checksum, build identity and anonymous download checks.
 The existing application on port 8080 and its data are not changed by release checks.
 
 ## Beta.1 historical checks

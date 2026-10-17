@@ -41,6 +41,12 @@ Source: `8a7a663eb3dbc57bfd2df45675fc8237b94797e6`.
 
 ### Verification and limits
 
+- AMD64 and ARM64 native readiness, sign-in, version and bundled scanner checks
+  passed against the published digest. Both architectures download anonymously.
+  The beta.1 image is unchanged; no `latest` tag or OCI chart was published.
+  See [image verification](docs/release-verification.md) and the
+  [release record](releases/0.1.0-beta.2.json).
+
 - Fresh release verification: 2,012 Go test/subtest pass events across 28 packages,
   46 explicit auth/upgrade/scoping harness pass events and 528 UI tests. UI lint,
   TypeScript/Vite build, Go vet, 21 deployment checks and Helm lint passed.
