@@ -4,7 +4,7 @@ image:
   tag: "" # Defaults to the chart appVersion.
   digest: "" # A digest takes precedence over the tag.
   pullPolicy: IfNotPresent
-# Beta.2 requires administrator sign-in and an owner-issued installation trial.
+# Beta.2 and later require administrator sign-in and an owner-issued installation trial.
 trial:
   existingSecret: ""
   key: trial-key

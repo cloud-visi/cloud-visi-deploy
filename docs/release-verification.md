@@ -1,5 +1,28 @@
 # Release validation record
 
+## Beta.3, 17 October 2026
+
+Source: `22344f62c0ea5bcddd89c15b933eb32575d3c162`, merged AWS fixes.
+The tree exactly matches the independently reviewed source tested before PR merge.
+
+| Check | Result |
+| --- | --- |
+| Full Go suite with real-migration API tests | 2,117 pass events, 16 skips, zero failures, 28 packages; events include subtests/packages |
+| AWS fixture pack | Nine Python tests, nine actionlint workflow checks and Terraform formatting pass |
+| Deployment checks | 21 tests and Helm lint pass |
+| UI build | TypeScript/Vite production build passes during the image build |
+| Multi-architecture archive | AMD64/ARM64 manifests, non-root UID 10001, SBOMs, provenance and no source checkout verified |
+| Local ARM64 runtime | Exact archive runtime configuration digest; readiness, administrator bootstrap/login, build identity, trial verifier and bundled scanner pass |
+| Published native runtime and anonymous pulls | Awaiting publication checks; not yet claimed passed |
+
+The existing owner verification key is unchanged from beta.2. Historical log
+repair remains explicit; new successful reads record parser version 13. The AWS
+campaign has 50 cases in Review, none Closed; it is not independently accepted.
+See [AWS coverage and qualifications](aws-github.md) and [the changelog](../CHANGELOG.md).
+The two-hour partner soak was not repeated; no larger operating envelope is claimed.
+Local release smoke tests use disposable data, no host ports and no provider
+credentials. They do not populate the user's newly reset application.
+
 ## Beta.2, 17 October 2026
 
 Fresh checks use clean private main `8a7a663eb3dbc57bfd2df45675fc8237b94797e6`

@@ -1,0 +1,42 @@
+{
+  "version": "0.1.0-beta.3",
+  "image": "ghcr.io/cloud-visi/cloud-visi",
+  "image_digest": "sha256:d41299fe9b15845491e579c808c9e16f8b8c95961574f33ca63cae6e86b80959",
+  "archive_sha256": "72380a0b11614e4766694b21f476ed1c8feb5c116b1093b153bc7c39ab1b24fa",
+  "source_revision": "22344f62c0ea5bcddd89c15b933eb32575d3c162",
+  "build_time": "2026-10-17T15:03:40Z",
+  "platforms": [
+    "linux/amd64",
+    "linux/arm64"
+  ],
+  "licence": "undecided",
+  "chart_published": false,
+  "trial_required": true,
+  "trial_public_key_sha256": "dda63a0f85df6913f482e7c0f3f76427f584ee265c69b97038aa2cbc616b4623",
+  "archive_verified": true,
+  "publication_status": "archive verified; awaiting GHCR publication and native checks",
+  "aws_campaign_cases": {
+    "review": 50,
+    "closed": 0,
+    "independent_campaign_acceptance": false
+  },
+  "go_verification": {
+    "pass_events": 2117,
+    "skip_events": 16,
+    "fail_events": 0,
+    "packages_passed": 28,
+    "real_migration_API_enabled": true,
+    "reviewed_tree_matches_merged_main": true
+  },
+  "local_runtime_verification": {
+    "platform": "linux/arm64",
+    "image_digest": "sha256:d41299fe9b15845491e579c808c9e16f8b8c95961574f33ca63cae6e86b80959",
+    "version": "0.1.0-beta.3",
+    "first_admin_and_login": true,
+    "owner_verification_configured": true,
+    "bundled_scanner": true,
+    "providers_used": false,
+    "host_ports_published": false,
+    "disposable_data_removed": true
+  }
+}

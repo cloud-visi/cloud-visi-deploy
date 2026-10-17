@@ -44,3 +44,5 @@ For AWS, the server first needs an AWS identity. That identity must be allowed t
 The first sync reads history from the configured lookback period, which defaults to 30 days. Its duration depends on the size of your repositories and access to the connected services.
 
 Repository settings show sync progress and issues. They also let you manage repositories you no longer want to track. State checks can remain unavailable while code history is readable. See [available information](available-information.md) for how to interpret these differences.
+
+For the AWS S3 and GitHub Actions path, see [AWS and GitHub setup](aws-github.md), including role scope, evidence formats and limits.

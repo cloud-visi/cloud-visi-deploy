@@ -25,7 +25,7 @@ Do not paste unredacted logs into public issues.
 
 ## The page does not open
 
-Use the exact HTTPS origin configured by `config.authPublicURL` (Helm) or `AUTH_PUBLIC_URL` (Compose). Keep your existing trusted TLS proxy running and preserve the public Host and Origin. Plain HTTP port forwarding alone is insufficient for beta.2 browser sign-in. See [access setup](access-control.md).
+Use the exact HTTPS origin configured by `config.authPublicURL` (Helm) or `AUTH_PUBLIC_URL` (Compose). Keep your existing trusted TLS proxy running and preserve the public Host and Origin. Plain HTTP port forwarding alone is insufficient for beta.2 and later browser sign-in. See [access setup](access-control.md).
 
 If startup reports a missing public URL, configure that exact HTTPS origin. If sign-in is unavailable because no administrator exists, run the documented first-admin bootstrap. If access requires trial activation, sign in as an administrator and enter an owner-issued installation key.
 

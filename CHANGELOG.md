@@ -1,5 +1,44 @@
 # Changelog
 
+## 0.1.0-beta.3 - 2026-10-17
+
+Source: `22344f62c0ea5bcddd89c15b933eb32575d3c162` (merged AWS fixes).
+
+### AWS and GitHub Actions
+
+- Validate the existing AWS S3 state-reader and GitHub Actions path with a
+  50-case campaign, six private fixture repositories and scoped replay tests.
+- Recognize full-SHA artifact action pins and output-only plans behind canonical
+  local composite wrappers, including reusable workflow forms.
+- Report typed S3 region-routing failures and STS credential failures nested
+  inside S3 reads with the correct explanation. Failed reads retain state history.
+- Explain current GitHub delivery evidence and log coverage accurately; workflow
+  success never implies Terraform apply or current cloud state.
+- Reject parent-directory action paths and native shell steps that resemble local
+  composites. Legitimate indented action inputs named shell remain supported.
+- Add [AWS/GitHub setup and evidence limits](docs/aws-github.md).
+
+### Upgrade and verification
+
+- Parser version 13 applies to new successful reads; historical repair stays
+  explicit and bounded. Preserve the database and matching encryption-key storage.
+- Administrator sign-in and installation-bound trials continue from beta.2 with
+  the same owner verification key. No schema migration or new runtime service.
+- Final tested source: 2,117 Go pass events, 16 skips, zero failures across 28
+  packages, with real-migration API coverage. Events include subtests/packages.
+  Nine fixture tests, nine actionlint checks, Terraform formatting and server
+  build pass. The merged main tree matches that reviewed/tested source exactly.
+- The campaign's 50 cases are in Review, none Closed; overall independent
+  acceptance is pending. Public gate/fork variants do not certify private
+  features or first-time outsider behavior. Invalid-account refusal does not
+  certify a successful cross-account read. Some controls are controlled replays.
+- GitHub Actions coverage remains partial; DORA retains its Azure Pipeline limit.
+  State is an observation, not continuous cloud health or apply causality.
+- GCS, notifications, automatic remediation and OCI chart publication remain
+  excluded. No new scale or vulnerability-free dependency claim is made.
+- Image/archive checks and publication status are recorded in
+  [release verification](docs/release-verification.md) and the versioned record.
+
 ## 0.1.0-beta.2 - 2026-10-17
 
 Source: `8a7a663eb3dbc57bfd2df45675fc8237b94797e6`.

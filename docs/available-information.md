@@ -13,7 +13,7 @@ Cloud-Visi combines information that is available to your installation. A connec
 
 A successful pipeline run alone does not prove that Terraform applied a change. A plan describes proposed changes. A failed apply can have made partial changes. Terraform state is stored evidence and is not a direct live inventory of a cloud account.
 
-GitHub Actions evidence currently has limits. Cloud-Visi can read runs and some Terraform results, but it does not support every workflow format or provide full parity with Azure Pipelines. Mixed-provider improvements are a separate development stream and are not promised by this preview.
+GitHub Actions evidence currently has limits. Cloud-Visi can read runs and some Terraform results, but it does not support every workflow format or provide full parity with Azure Pipelines. Beta.3 adds recognition for full-SHA artifact actions and canonical local composite wrappers. Explicit checkout/root evidence is still required for attribution; see [AWS and GitHub evidence](aws-github.md).
 
 Branch policy information does not determine whether repository sync is healthy. Cloud-Visi is not a branch protection compliance tool.
 
