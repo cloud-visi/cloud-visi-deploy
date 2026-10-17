@@ -47,6 +47,7 @@ def verify(container, record, architecture):
         assert trial["state"] == "activation_required" and trial["activation_available"] is True
         print("Verified native authenticated runtime:", version["version"], architecture)
         print("Fresh trial requires valid owner activation; no provider credentials or fixtures imported")
+        return cookies[0], session["csrf_token"], trial["installation_id"]
     finally:
         run(container, ["rm", "-f", "/tmp/cloudvisi-smoke-password", "/tmp/cloudvisi-smoke-request"])
 

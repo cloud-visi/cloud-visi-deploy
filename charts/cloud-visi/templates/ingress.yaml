@@ -1,5 +1,5 @@
 {{- if .Values.ingress.enabled }}
-{{- if not .Values.ingress.authenticationConfirmed }}{{ fail "Cloud-Visi has no built-in login. Configure an existing authentication gateway before enabling ingress, then set ingress.authenticationConfirmed=true." }}{{ end }}
+{{- if not .Values.ingress.authenticationConfirmed }}{{ fail "Configure your existing trusted HTTPS access boundary before enabling ingress, then set ingress.authenticationConfirmed=true. Application sign-in remains required." }}{{ end }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:

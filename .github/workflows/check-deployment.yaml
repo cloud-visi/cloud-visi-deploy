@@ -19,5 +19,5 @@ jobs:
           tar -xzf helm-v4.2.2-linux-amd64.tar.gz
           sudo install linux-amd64/helm /usr/local/bin/helm
       - run: python3 -m pip install -r requirements-dev.txt
-      - run: helm lint charts/cloud-visi
+      - run: helm lint charts/cloud-visi --set config.authPublicURL=https://cloud-visi.example.test
       - run: python3 -m unittest discover -s tests -v

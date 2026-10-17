@@ -103,7 +103,7 @@ You will need a read-only token for your chosen code host. Terraform state acces
 
 ## After installation
 
-Open Cloud-Visi, choose your code host, and follow the setup form. Choose which repositories to connect. Cloud-Visi reads their existing history in the background, so the first sync can take some time.
+Complete [administrator bootstrap](docs/access-control.md), sign in at the configured HTTPS origin and [activate your trial](docs/trial.md). Choose your code host and follow the setup form. Choose which repositories to connect. Cloud-Visi reads their existing history in the background, so the first sync can take some time.
 
 Use it for your own work. There is no required evaluation task or prescribed outcome. If you want to share feedback, see [giving feedback](docs/feedback.md).
 
@@ -111,13 +111,13 @@ Use it for your own work. There is no required evaluation task or prescribed out
 
 - [What information can be read](docs/available-information.md)
 - [Configuration reference](docs/configuration.md)
-- [Upcoming 30-day trial activation](docs/trial.md)
+- [30-day trial activation](docs/trial.md)
 - [Restart, upgrade, backup, and remove](docs/operations.md)
 - [Troubleshooting](docs/troubleshooting.md)
 
 ## Access and data
 
-The preview has no built-in login. Its Kubernetes service is reachable inside the cluster, so use a trusted namespace and network boundary. Keep access private. The default Helm instructions use port forwarding, and Compose binds only to localhost. Shared access requires your existing authentication gateway.
+Beta.2 requires local sign-in. Administrators manage connections and accounts; viewers can read only repositories explicitly granted to them. Keep access private and use your existing trusted HTTPS proxy at the exact configured public origin. The chart does not provision TLS. Compose binds its backend only to localhost. See [access setup](docs/access-control.md).
 
 Repository copies, history, and saved credentials are stored in your installation. Code host and cloud connections use the credentials you provide. This deployment does not configure a hosted analytics service.
 

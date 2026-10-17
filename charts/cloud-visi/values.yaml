@@ -47,7 +47,7 @@ tolerations: []
 affinity: {}
 ingress:
   enabled: false
-  authenticationConfirmed: false # Require an existing authentication gateway.
+  authenticationConfirmed: false # Confirm the existing trusted HTTPS access boundary.
   className: ""
   host: ""
   annotations: {}
