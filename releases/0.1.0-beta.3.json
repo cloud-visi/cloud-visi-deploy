@@ -14,7 +14,7 @@
   "trial_required": true,
   "trial_public_key_sha256": "dda63a0f85df6913f482e7c0f3f76427f584ee265c69b97038aa2cbc616b4623",
   "archive_verified": true,
-  "publication_status": "archive verified; awaiting GHCR publication and native checks",
+  "publication_status": "published and verified",
   "aws_campaign_cases": {
     "review": 50,
     "closed": 0,
@@ -38,5 +38,28 @@
     "providers_used": false,
     "host_ports_published": false,
     "disposable_data_removed": true
-  }
+  },
+  "package_visibility": "public",
+  "publication_run": "https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/39044313680",
+  "native_runtime_verified": [
+    "linux/amd64",
+    "linux/arm64"
+  ],
+  "runtime_verification_run": "https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/39044313680",
+  "deployment_validation_run": "https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/39044281598",
+  "anonymous_pull_verified": true,
+  "anonymous_pull_verified_platforms": [
+    "linux/amd64",
+    "linux/arm64"
+  ],
+  "anonymous_pull_verified_tags": [
+    "0.1.0-beta.3",
+    "beta"
+  ],
+  "anonymous_pull_verified_at": "2026-10-17T15:18:38Z",
+  "previous_versioned_tags_unchanged": [
+    "0.1.0-beta.1",
+    "0.1.0-beta.2"
+  ],
+  "latest_tag_published": false
 }

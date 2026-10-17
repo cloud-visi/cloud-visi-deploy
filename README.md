@@ -25,7 +25,7 @@ The available detail depends on your repositories, permissions, workflow formats
 
 This public repository contains deployment files and partner guides. Product source is maintained privately.
 
-**Beta release:** `0.1.0-beta.3` improves AWS S3 state and GitHub Actions evidence, including pinned artifact actions, local composite plans and clearer AWS credential/region failures. See [AWS and GitHub setup](docs/aws-github.md), the [changelog](CHANGELOG.md), and [release verification](docs/release-verification.md). Administrator sign-in, repository viewer grants and installation-bound trials remain required; see [access setup](docs/access-control.md) and [trial activation](docs/trial.md). The licence remains undecided.
+**Beta release:** [0.1.0-beta.3](https://github.com/cloud-visi/cloud-visi-deploy/releases/tag/v0.1.0-beta.3) improves AWS S3 state and GitHub Actions evidence, including pinned artifact actions, local composite plans and clearer AWS credential/region failures. See [AWS and GitHub setup](docs/aws-github.md), the [changelog](CHANGELOG.md), and [release verification](docs/release-verification.md). Administrator sign-in, repository viewer grants and installation-bound trials remain required; see [access setup](docs/access-control.md) and [trial activation](docs/trial.md). Native AMD64/ARM64 runtime checks and anonymous pulls pass. The licence remains undecided.
 
 ## Choose how to run it
 

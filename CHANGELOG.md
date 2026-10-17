@@ -36,8 +36,11 @@ Source: `22344f62c0ea5bcddd89c15b933eb32575d3c162` (merged AWS fixes).
   State is an observation, not continuous cloud health or apply causality.
 - GCS, notifications, automatic remediation and OCI chart publication remain
   excluded. No new scale or vulnerability-free dependency claim is made.
-- Image/archive checks and publication status are recorded in
-  [release verification](docs/release-verification.md) and the versioned record.
+- Published AMD64/ARM64 native runtime and bundled scanner checks pass; both
+  architectures download anonymously. Beta.1/beta.2 are unchanged and beta
+  matches the approved digest. No latest tag or OCI chart was published.
+- See [release verification](docs/release-verification.md) and
+  [the completed release record](releases/0.1.0-beta.3.json).
 
 ## 0.1.0-beta.2 - 2026-10-17
 

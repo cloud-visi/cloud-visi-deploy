@@ -13,7 +13,13 @@ The tree exactly matches the independently reviewed source tested before PR merg
 | UI build | TypeScript/Vite production build passes during the image build |
 | Multi-architecture archive | AMD64/ARM64 manifests, non-root UID 10001, SBOMs, provenance and no source checkout verified |
 | Local ARM64 runtime | Exact archive runtime configuration digest; readiness, administrator bootstrap/login, build identity, trial verifier and bundled scanner pass |
-| Published native runtime and anonymous pulls | Awaiting publication checks; not yet claimed passed |
+| Published native AMD64 and ARM64 | Readiness, UID 10001, first administrator/login, build identity, trial verifier and bundled scanner pass |
+| Anonymous image pulls | AMD64 and ARM64 downloads pass; beta.3 and beta match the approved digest |
+| Previous tags | Beta.1/beta.2 unchanged; latest remains absent; OCI chart unpublished |
+
+[Publication and native checks](https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/39044313680),
+[deployment checks](https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/39044281598),
+and [the release record](../releases/0.1.0-beta.3.json) retain the completed evidence.
 
 The existing owner verification key is unchanged from beta.2. Historical log
 repair remains explicit; new successful reads record parser version 13. The AWS
