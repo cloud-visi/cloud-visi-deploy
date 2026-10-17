@@ -2,7 +2,7 @@
 
 ## Release availability
 
-Candidate `0.1.0-beta.2` requires an installation-bound trial. The older `0.1.0-beta.1` image has no trial expiry. Check the release record for publication status.
+Release `0.1.0-beta.2` requires an installation-bound trial. The older `0.1.0-beta.1` image has no trial expiry. Check the release record for publication status.
 
 ## Activate your installation
 

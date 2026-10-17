@@ -1,10 +1,8 @@
 # Changelog
 
-## 0.1.0-beta.2 - release candidate
+## 0.1.0-beta.2 - 2026-10-17
 
 Source: `8a7a663eb3dbc57bfd2df45675fc8237b94797e6`.
-This entry describes the candidate. Image publication and architecture checks must
-complete before it is marked released.
 
 ### Added
 
@@ -43,8 +41,10 @@ complete before it is marked released.
 
 ### Verification and limits
 
-- Source verification on 15 October: 2,053 Go tests/subtests, 48 explicit harness
-  checks and 528 UI tests passed. Release-specific checks are recorded separately.
+- Fresh release verification: 2,012 Go test/subtest pass events across 28 packages,
+  46 explicit auth/upgrade/scoping harness pass events and 528 UI tests. UI lint,
+  TypeScript/Vite build, Go vet, 21 deployment checks and Helm lint passed.
+  Harness counts overlap the full suite; diagnostic/performance tests are opt-in.
 - The verified synthetic partner profile is 20 repositories, 5,000 resources,
   50,000 changes and five readers, including a passing uninterrupted two-hour soak.
 - The 25,000-resource comparison still misses latency targets and is outside that
@@ -52,6 +52,11 @@ complete before it is marked released.
 - GitHub Actions coverage remains partial; DORA retains its Azure Pipeline limit.
 - Available state is an observation, not continuous cloud health or apply causality.
 - GCS, notifications, automatic remediation and OCI chart publication are excluded.
+- The locked UI build dependency `source-map-js` 1.2.1 has a
+  [known source-map denial-of-service advisory](https://github.com/advisories/GHSA-68fv-2mgg-jv7q).
+  It processes the trusted release source during build; the runtime image ships
+  the compiled static UI and Go server, without Node.js or that build package.
+  This release is not a claim of a vulnerability-free dependency inventory.
 
 ## 0.1.0-beta.1 - 2026-10-12
 

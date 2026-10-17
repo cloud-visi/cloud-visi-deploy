@@ -1,0 +1,27 @@
+{
+  "version": "0.1.0-beta.2",
+  "image": "ghcr.io/cloud-visi/cloud-visi",
+  "image_digest": "sha256:6b85bf671016716bbb56746e436bd8f0d82c06a56d4f26924dbe17f604d5bc40",
+  "archive_sha256": "1f6a0359ad7b8f681b102884d0dba80a23716fe479e5cb7872cf8e9a3f598339",
+  "source_revision": "8a7a663eb3dbc57bfd2df45675fc8237b94797e6",
+  "build_time": "2026-10-17T08:46:46Z",
+  "platforms": [
+    "linux/amd64",
+    "linux/arm64"
+  ],
+  "licence": "undecided",
+  "chart_published": false,
+  "trial_required": true,
+  "trial_public_key_sha256": "dda63a0f85df6913f482e7c0f3f76427f584ee265c69b97038aa2cbc616b4623",
+  "archive_verified": true,
+  "local_runtime_verification": {
+    "platform": "linux/arm64",
+    "image_digest": "sha256:6b85bf671016716bbb56746e436bd8f0d82c06a56d4f26924dbe17f604d5bc40",
+    "version": "0.1.0-beta.2",
+    "first_admin_and_login": true,
+    "owner_signed_trial": true,
+    "restart_retention": true,
+    "providers_used": false,
+    "host_ports_published": false
+  }
+}

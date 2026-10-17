@@ -1,5 +1,29 @@
 # Release validation record
 
+## Beta.2, 17 October 2026
+
+Fresh checks use clean private main `8a7a663eb3dbc57bfd2df45675fc8237b94797e6`
+and disposable local data. No real code-host or state credentials are used.
+
+| Check | Result |
+| --- | --- |
+| Go suite | 2,012 test/subtest pass events, 28 packages |
+| Explicit auth/upgrade/scoping harness | 46 pass events, zero skips; overlaps the full suite |
+| UI | 528 tests; lint and TypeScript/Vite production build pass |
+| Go vet | Pass |
+| Deployment | 21 tests and Helm lint pass with the required public origin |
+| OCI archive | AMD64/ARM64 manifests, UID 10001, SBOMs, provenance and runtime layer checks pass |
+| Local ARM64 runtime | First administrator, login, version identity, signed owner trial activation, product access and restart retention pass |
+| GHCR and native AMD64/ARM64 | See the release page and release record for publication results |
+
+Diagnostic/performance tests remain opt-in. The passing two-hour partner soak
+was completed on 15 October; it was not repeated for this image release.
+The 25,000-resource comparison still falls outside the verified latency envelope.
+See [the changelog](../CHANGELOG.md) for upgrade requirements and limits.
+The existing application on port 8080 and its data are not changed by release checks.
+
+## Beta.1 historical checks
+
 Maintainer checks completed on 12 October 2026 using isolated local data and no
 real code-host or cloud credentials. The beta image is published; the OCI chart remains unpublished.
 
@@ -37,7 +61,7 @@ contains deployment files, documentation and screenshots only.
 
 ## Beta image record
 
-Version `0.1.0-beta.1` and alias `beta` were explicitly authorized for publication.
+Version `0.1.0-beta.1` and the then-current alias `beta` were explicitly authorized for publication.
 The image is built from merged private main with AMD64 and ARM64 runtime manifests,
 SBOMs and minimal provenance. The release record contains the immutable digest,
 archive checksum, source revision and actual build timestamp. Archive validation
@@ -48,6 +72,6 @@ Native post-publication checks passed on both `ubuntu-24.04` and
 `ubuntu-24.04-arm`: architecture, UID 10001, database readiness, beta version,
 source revision, build timestamp and bundled scanner. These use the exact
 published digest and disposable local databases. Anonymous GHCR downloads passed for both AMD64 and ARM64 using an empty Docker
-credential configuration. The versioned tag and `beta` alias resolve to the
-recorded image digest. The compiled OCI archive is also available without
+credential configuration. At beta.1 verification time its versioned tag and `beta` alias resolved to the
+recorded image digest; `beta` is a moving alias for the newest approved beta. The compiled OCI archive is also available without
 authentication as a GitHub release asset.
