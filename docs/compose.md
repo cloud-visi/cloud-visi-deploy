@@ -15,8 +15,8 @@ git clone https://github.com/cloud-visi/cloud-visi-deploy.git
 cd cloud-visi-deploy
 python3 scripts/create-compose-env.py
 export AUTH_PUBLIC_URL=https://your-cloud-visi-hostname.example
-CLOUD_VISI_IMAGE=ghcr.io/cloud-visi/cloud-visi:0.1.0-beta.3 docker compose pull
-CLOUD_VISI_IMAGE=ghcr.io/cloud-visi/cloud-visi:0.1.0-beta.3 docker compose up -d --wait --wait-timeout 600
+CLOUD_VISI_IMAGE=ghcr.io/cloud-visi/cloud-visi:0.1.0-beta.4 docker compose pull
+CLOUD_VISI_IMAGE=ghcr.io/cloud-visi/cloud-visi:0.1.0-beta.4 docker compose up -d --wait --wait-timeout 600
 ```
 
 The script creates a local `.env` file with a database password and an encryption key. It does not print either value. Running it again keeps the existing file.

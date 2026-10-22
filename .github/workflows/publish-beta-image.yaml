@@ -6,7 +6,7 @@ on:
         description: Approved beta version with a matching release record and OCI archive
         type: string
         required: true
-        default: 0.1.0-beta.3
+        default: 0.1.0-beta.4
   push:
     branches: [codex/beta-image-release]
     paths: [.github/workflows/publish-beta-image.yaml]
@@ -25,7 +25,7 @@ jobs:
       packages: write
     env:
       GH_TOKEN: ${{ github.token }}
-      VERSION: ${{ inputs.version || '0.1.0-beta.3' }}
+      VERSION: ${{ inputs.version || '0.1.0-beta.4' }}
       IMAGE: ghcr.io/cloud-visi/cloud-visi
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
@@ -83,7 +83,7 @@ jobs:
       packages: read
     env:
       GH_TOKEN: ${{ github.token }}
-      VERSION: ${{ inputs.version || '0.1.0-beta.3' }}
+      VERSION: ${{ inputs.version || '0.1.0-beta.4' }}
       EXPECTED_ARCH: ${{ matrix.arch }}
       EXPECTED_MACHINE: ${{ matrix.machine }}
     steps:

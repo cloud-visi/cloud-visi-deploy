@@ -1,5 +1,62 @@
 # Changelog
 
+## 0.1.0-beta.4 - 2026-10-22
+
+Source: `948fde7beb2fd07edca39af17746b174499eab8c`.
+
+### Changed
+
+- Scan plan, apply and state evidence more easily, with shorter headings and
+  guidance across investigations, findings, resource history, reviews, analytics
+  and settings. Detailed refresh information is available on demand.
+- Keep supported repository, cloud, environment and time selections when moving
+  between pages. Pages explain selections they cannot apply.
+- See change filter choices drawn from the selected history and repository
+  permissions, with linked choices following the other selected filters.
+- Read dependency diagrams with clearer labels, visible selected resources and
+  focus controls across resource, repository and cross-state views.
+- Understand findings with recorded evidence, coverage, review guidance and next
+  steps. Team metrics and review labels explain their qualification limits.
+- Distinguish saved historical records and fictional examples, with example
+  links scoped to the records available in that installation.
+
+### Fixed
+
+- Keep filter choices in consistent name and identifier order across database locales.
+- Align setup summaries with tracked repositories and saved connections. State
+  configuration opens after the first repository sync; skipping it stays visible.
+- Show useful GitHub credential and permission remedies when discovery fails.
+  Failed discovery does not claim a credential was saved.
+- Use Cloud-Visi branding on fresh installations and correct singular repository
+  wording in AWS setup. Existing custom installation names are preserved.
+- Retain the dated coverage of an orphan check in historical snapshots. A state
+  read alone cannot establish that an orphan check ran.
+- Exclude state observations older than the code change from measurable delivery
+  durations, avoiding negative code-to-state times.
+
+### Upgrade and coverage
+
+- Keep the existing database, encryption key and trial files when upgrading.
+  This release adds no schema migration or runtime service and uses the existing
+  owner verification key. Historical repair remains explicit.
+- Existing cloud support continues: Azure Blob Storage and AWS S3 state;
+  GitHub/Azure DevOps repositories; GitHub Actions/Azure Pipelines evidence.
+  Workflow success does not prove an apply. GitHub Actions coverage remains
+  partial, and DORA remains limited to supported Azure Pipeline evidence.
+- The customer walkthrough used preserved fictional examples and a separate
+  live onboarding installation. Administrator setup, repository discovery and
+  first sync passed. Full live Actions/state onboarding remains unverified
+  pending refreshed GitHub access and Azure state credentials.
+- The prior AWS campaign and operating envelope retain their recorded limits.
+  This release does not certify new cloud backends or a larger workload.
+- Fresh checks: 2,137 Go pass events, 16 skip events and zero failures
+  across 28 packages with real-migration API tests; 549 UI tests pass.
+  The production UI build, deployment tests, Helm lint, archive verification and
+  exact-archive local ARM64 runtime/scanner checks pass. Events include subtests
+  and packages; optional campaign, soak and diagnostic tests remain opt-in.
+- See [release verification](docs/release-verification.md) and the
+  [release record](releases/0.1.0-beta.4.json) for publication and native checks.
+
 ## 0.1.0-beta.3 - 2026-10-17
 
 Source: `22344f62c0ea5bcddd89c15b933eb32575d3c162` (merged AWS fixes).

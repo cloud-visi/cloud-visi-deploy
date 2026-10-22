@@ -1,0 +1,74 @@
+{
+  "version": "0.1.0-beta.4",
+  "image": "ghcr.io/cloud-visi/cloud-visi",
+  "image_digest": "sha256:d802fb1c24a4a0c6f1a89faa3ae2e88610fa479982ac0d32bef12c722b299080",
+  "archive_sha256": "937a660962e75baf33cb7ef5437fed0aeb4af722eb2a6a265178a0c2f4419cc1",
+  "source_revision": "948fde7beb2fd07edca39af17746b174499eab8c",
+  "build_time": "2026-10-22T14:21:29Z",
+  "platforms": [
+    "linux/amd64",
+    "linux/arm64"
+  ],
+  "licence": "undecided",
+  "chart_published": false,
+  "trial_required": true,
+  "trial_public_key_sha256": "dda63a0f85df6913f482e7c0f3f76427f584ee265c69b97038aa2cbc616b4623",
+  "publication_status": "locally verified; awaiting publication",
+  "onboarding_coverage": {
+    "admin_repository_discovery_first_sync": true,
+    "full_live_actions_state_onboarding": false,
+    "remaining_requirements": [
+      "refreshed GitHub fixture access",
+      "Azure state credentials"
+    ]
+  },
+  "aws_campaign_cases": {
+    "review": 50,
+    "closed": 0,
+    "independent_campaign_acceptance": false
+  },
+  "ui_verification": {
+    "tests_passed": 549,
+    "tests_skipped": 0,
+    "production_build": true,
+    "lint_errors": 0,
+    "existing_lint_warnings": 15
+  },
+  "deployment_verification": {
+    "tests_passed": 21,
+    "helm_lint": true
+  },
+  "go_verification": {
+    "exit_code": 0,
+    "pass_events": 2137,
+    "skip_events": 16,
+    "fail_events": 0,
+    "packages_passed": 28,
+    "failures": [],
+    "real_migration_API_enabled": true,
+    "fresh_UTF8_database": true,
+    "source_revision": "948fde7beb2fd07edca39af17746b174499eab8c"
+  },
+  "local_runtime_verification": {
+    "platform": "linux/arm64",
+    "image_digest": "sha256:d802fb1c24a4a0c6f1a89faa3ae2e88610fa479982ac0d32bef12c722b299080",
+    "version": "0.1.0-beta.4",
+    "archive_config_matches": true,
+    "readiness": true,
+    "non_root": true,
+    "first_admin_and_login": true,
+    "owner_verification_configured": true,
+    "bundled_scanner": true,
+    "providers_used": false,
+    "host_ports_published": false,
+    "disposable_data_removed": true
+  },
+  "archive_verified": true,
+  "source_reviews": {
+    "backend_scope_security": true,
+    "adversarial": true,
+    "coverage_scope_audit": true,
+    "sorting_fix_review": true,
+    "fixtures_adversarial_summary_only": true
+  }
+}

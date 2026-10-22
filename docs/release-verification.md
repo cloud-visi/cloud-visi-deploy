@@ -1,5 +1,40 @@
 # Release validation record
 
+## Beta.4, 22 October 2026
+
+Source: `948fde7beb2fd07edca39af17746b174499eab8c`. This release includes the customer
+walkthrough fixes and the filter ordering regression caught during release checks.
+
+| Check | Result |
+| --- | --- |
+| Fresh full Go suite with real-migration API tests | 2,137 pass events, 16 skip events, zero failures; 28 packages passed; events include subtests/packages |
+| UI | 549 tests pass, zero skipped; TypeScript/Vite production build passes; lint has zero errors and 15 existing warnings |
+| Deployment files | 21 tests and Helm lint pass |
+| Source review | Backend scoping/security, adversarial review and coverage/scope audit have no remaining actionable findings; adversarial fixtures were summary-only |
+| Filter ordering regression | Mixed-case person names reproduced the defect; the fixed order and repository-wide collation guard pass |
+| Multi-architecture archive | AMD64/ARM64 manifests, UID 10001, SBOMs, provenance and no source checkout verified |
+| Local ARM64 runtime | Config matches the exact archive; readiness, administrator bootstrap/login, version, configured trial verifier and bundled scanner pass |
+
+The release record will be updated with native GitHub runner and anonymous
+download checks after publication. Local checks use disposable data, publish no
+host ports and use no provider credentials. Existing local applications and data
+are preserved; the application on port 8080 is unchanged.
+
+The trial owner verification key is unchanged from beta.3. No schema migration
+or new runtime service is added; keep database, encryption key and trial files.
+
+The customer walkthrough used fictional examples with explicit labels. Separate
+live administrator setup, GitHub discovery, first sync and refusal controls were
+verified. Full live private Actions/state onboarding is not certified by that
+walkthrough: refreshed GitHub fixture access and Azure state credentials are
+still needed. The earlier AWS campaign retains 50 cases in Review and none
+Closed, with independent acceptance pending. GitHub Actions evidence remains
+partial; DORA retains its Azure Pipeline limit. No new operating envelope,
+GCS support, notifications or OCI chart publication is claimed.
+
+See the [release record](../releases/0.1.0-beta.4.json),
+[changelog](../CHANGELOG.md) and [AWS evidence limits](aws-github.md).
+
 ## Beta.3, 17 October 2026
 
 Source: `22344f62c0ea5bcddd89c15b933eb32575d3c162`, merged AWS fixes.

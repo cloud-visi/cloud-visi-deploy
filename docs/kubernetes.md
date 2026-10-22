@@ -50,7 +50,7 @@ This is separate from your GitHub or Azure DevOps token, which you enter in the 
 Select the image version listed on the release page.
 
 ```bash
-IMAGE_VERSION=0.1.0-beta.3
+IMAGE_VERSION=0.1.0-beta.4
 PUBLIC_URL=https://your-cloud-visi-hostname.example
 helm upgrade --install cloud-visi ./charts/cloud-visi \
   --set image.tag="$IMAGE_VERSION" --set config.authPublicURL="$PUBLIC_URL" \
