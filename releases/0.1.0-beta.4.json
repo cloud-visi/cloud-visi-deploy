@@ -101,8 +101,6 @@
   "package_visibility": "public",
   "publication_run": "https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/39796825802",
   "runtime_verification_run": "https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/39796825802",
-  "github_run_status": "in_progress",
-  "github_run_conclusion": null,
   "github_native_checks": {
     "amd64": {
       "status": "completed",
@@ -120,5 +118,6 @@
     "linux/arm64"
   ],
   "deployment_validation_run": "https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/39796581613",
-  "deployment_job_verified": true
+  "deployment_job_verified": true,
+  "publication_job_verified": true
 }
