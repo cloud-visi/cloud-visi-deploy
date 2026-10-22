@@ -15,8 +15,12 @@ walkthrough fixes and the filter ordering regression caught during release check
 | Multi-architecture archive | AMD64/ARM64 manifests, UID 10001, SBOMs, provenance and no source checkout verified |
 | Local ARM64 runtime | Config matches the exact archive; readiness, administrator bootstrap/login, version, configured trial verifier and bundled scanner pass |
 
-The release record will be updated with native GitHub runner and anonymous
-download checks after publication. Local checks use disposable data, publish no
+Native GitHub AMD64 and ARM64 readiness, non-root user, administrator login, build identity, configured trial verifier and bundled scanner checks pass.
+
+Both architectures are publicly available. Anonymous OCI registry downloads of both manifests and all runtime config/layer bytes passed SHA-256 checks (12 unique blobs, 136,209,626 bytes). The version and beta alias match the approved digest. Beta.1, beta.2 and beta.3 are unchanged; latest is absent and no OCI chart was published.
+
+[Publication and native checks](https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/39796825802) and
+[deployment checks](https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/39796581613) retain the job evidence. Local checks use disposable data, publish no
 host ports and use no provider credentials. Existing local applications and data
 are preserved; the application on port 8080 is unchanged.
 

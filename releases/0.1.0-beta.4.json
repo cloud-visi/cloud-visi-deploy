@@ -13,7 +13,7 @@
   "chart_published": false,
   "trial_required": true,
   "trial_public_key_sha256": "dda63a0f85df6913f482e7c0f3f76427f584ee265c69b97038aa2cbc616b4623",
-  "publication_status": "locally verified; awaiting publication",
+  "publication_status": "published and verified",
   "onboarding_coverage": {
     "admin_repository_discovery_first_sync": true,
     "full_live_actions_state_onboarding": false,
@@ -70,5 +70,55 @@
     "coverage_scope_audit": true,
     "sorting_fix_review": true,
     "fixtures_adversarial_summary_only": true
-  }
+  },
+  "anonymous_pull_verified": true,
+  "anonymous_pull_verified_platforms": [
+    "linux/amd64",
+    "linux/arm64"
+  ],
+  "anonymous_pull_verified_tags": [
+    "0.1.0-beta.4",
+    "beta"
+  ],
+  "anonymous_pull_verification_method": "anonymous OCI registry manifests and SHA-256 verified runtime blobs",
+  "anonymous_unique_blobs_verified": 12,
+  "anonymous_bytes_downloaded": 136209626,
+  "anonymous_pull_verified_at": "2026-10-22T14:39:27Z",
+  "previous_versioned_tags_unchanged": [
+    "0.1.0-beta.1",
+    "0.1.0-beta.2",
+    "0.1.0-beta.3"
+  ],
+  "latest_tag_published": false,
+  "registry_digests": {
+    "0.1.0-beta.1": "sha256:3466183702f584975c02e600f51e2e364d7be51129e46c535de7e13a58d9b5d5",
+    "0.1.0-beta.2": "sha256:6b85bf671016716bbb56746e436bd8f0d82c06a56d4f26924dbe17f604d5bc40",
+    "0.1.0-beta.3": "sha256:d41299fe9b15845491e579c808c9e16f8b8c95961574f33ca63cae6e86b80959",
+    "0.1.0-beta.4": "sha256:d802fb1c24a4a0c6f1a89faa3ae2e88610fa479982ac0d32bef12c722b299080",
+    "beta": "sha256:d802fb1c24a4a0c6f1a89faa3ae2e88610fa479982ac0d32bef12c722b299080",
+    "latest": null
+  },
+  "package_visibility": "public",
+  "publication_run": "https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/39796825802",
+  "runtime_verification_run": "https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/39796825802",
+  "github_run_status": "in_progress",
+  "github_run_conclusion": null,
+  "github_native_checks": {
+    "amd64": {
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/39796825802/job/119886280888"
+    },
+    "arm64": {
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/39796825802/job/119886280801"
+    }
+  },
+  "native_runtime_verified": [
+    "linux/amd64",
+    "linux/arm64"
+  ],
+  "deployment_validation_run": "https://github.com/cloud-visi/cloud-visi-deploy/actions/runs/39796581613",
+  "deployment_job_verified": true
 }

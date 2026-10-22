@@ -54,6 +54,8 @@ Source: `948fde7beb2fd07edca39af17746b174499eab8c`.
   The production UI build, deployment tests, Helm lint, archive verification and
   exact-archive local ARM64 runtime/scanner checks pass. Events include subtests
   and packages; optional campaign, soak and diagnostic tests remain opt-in.
+- Native GitHub AMD64 and ARM64 readiness, non-root user, administrator login, build identity, configured trial verifier and bundled scanner checks pass.
+- Both architectures are publicly available. Anonymous OCI registry downloads of both manifests and all runtime config/layer bytes passed SHA-256 checks (12 unique blobs, 136,209,626 bytes). The version and beta alias match the approved digest. Beta.1, beta.2 and beta.3 are unchanged; latest is absent and no OCI chart was published.
 - See [release verification](docs/release-verification.md) and the
   [release record](releases/0.1.0-beta.4.json) for publication and native checks.
 
